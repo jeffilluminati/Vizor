@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.InfoFragment">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_logo_foreground"
+        android:scaleX="2"
+        android:scaleY="2"
+        />
+
+    <TextView
+        android:id="@+id/slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="-16dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/slogan"
+        android:textStyle="italic"
+        android:textSize="18sp"
+        android:textColor="#127916"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="40dp"
+        android:textSize="18dp"
+        android:text="Post-vaccine concept app created by Mayukh Das and Dave Tan for CS4131 Assignment 2.\n\nFeatures include.;"
+        />
+    <Button
+        android:id="@+id/backrBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Vizor.button"
+        android:text="Back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="172dp"
+        android:layout_marginEnd="48dp"
+        />
+
+
+
+</RelativeLayout>

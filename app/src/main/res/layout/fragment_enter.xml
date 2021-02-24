@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.EnterFragment"
+    android:background="#A9F1BD">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_logo_foreground"
+        android:scaleX="2"
+        android:scaleY="2"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="-16dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/slogan"
+        android:textStyle="italic"
+        android:textSize="18sp"
+        android:textColor="#127916"
+        />
+
+    <Button
+        android:id="@+id/infoBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Vizor.button"
+        android:text="Info"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="200dp"
+        android:layout_marginEnd="32dp"
+
+        />
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Vizor.button"
+        android:text="Login"
+        android:layout_above="@id/infoBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        />
+
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Vizor.button"
+        android:text="Register"
+        android:layout_above="@id/loginBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        />
+
+
+</RelativeLayout>
