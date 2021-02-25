@@ -1,6 +1,6 @@
 package com.example.eventtracker.data.model
 
-import com.example.eventtracker.MainActivity
+import com.example.vizor.MainActivity
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
