@@ -1,4 +1,6 @@
 package com.example.vizor.ui
 
-class RegistrationFragment {
+import androidx.fragment.app.Fragment
+
+class RegistrationFragment : Fragment() {
 }
