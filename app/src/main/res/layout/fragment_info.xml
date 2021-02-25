@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_marginTop="-16dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="32dp"
         android:text="@string/slogan"
         android:textStyle="italic"
         android:textSize="18sp"
@@ -36,9 +36,15 @@
         android:layout_below="@id/slogan"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="32dp"
         android:textSize="18dp"
-        android:text="Post-vaccine concept app created by Mayukh Das and Dave Tan for CS4131 Assignment 2.\n\nFeatures include.;"
+        android:textColor="#000000"
+        android:text="Post-vaccine concept app created by Mayukh Das and Dave Tan for CS4131 Assignment 2.\n\nFeatures include: \n\n
+- Vaccine status encryption to protect user privacy
+\n\n
+- 1 Scan QR Code interface to easily verify vaccine status
+\n\n
+- Up to date COVID numbers for visited countries."
         />
     <Button
         android:id="@+id/backrBtn"
