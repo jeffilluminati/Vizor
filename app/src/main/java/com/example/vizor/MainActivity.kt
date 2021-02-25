@@ -1,4 +1,4 @@
-package com.example.vizor.ui
+package com.example.vizor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         println("hello world")
 
         var navControl = Navigation.findNavController(this, R.id.navHostFragment)
-//        findViewById<Button>(R.id.infoBtn).setOnClickListener(){
-//        }
+
     }
 }
