@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Vizor</string>
     <string name="slogan">Travelling made easy in the vaccine age.</string>
+    <string name="bottom_nav_title_1">Travel ID</string>
+    <string name="bottom_nav_title_2">Vaccines</string>
+    <string name="bottom_nav_title_3">Travel History</string>
 </resources>

@@ -18,5 +18,39 @@
         android:id="@+id/enterFragment"
         android:name="com.example.vizor.ui.EnterFragment"
         android:label="fragment_enter"
-        tools:layout="@layout/fragment_enter" />
+        tools:layout="@layout/fragment_enter" >
+        <action
+            android:id="@+id/action_enterFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:exitAnim="@anim/fragment_fast_out_extra_slow_in" />
+        <action
+            android:id="@+id/action_enterFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_enterFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.vizor.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_threeFragment"
+            app:destination="@id/threeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.vizor.ui.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/threeFragment"
+        android:name="com.example.vizor.ui.ThreeFragment"
+        android:label="fragment_three"
+        tools:layout="@layout/fragment_three" />
 </navigation>
