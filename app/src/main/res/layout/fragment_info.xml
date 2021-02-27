@@ -47,7 +47,7 @@
 - Up to date COVID numbers for visited countries."
         />
     <Button
-        android:id="@+id/backrBtn"
+        android:id="@+id/backBtn"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         style="@style/Theme.Vizor.button"

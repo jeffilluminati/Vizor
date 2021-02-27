@@ -82,7 +82,7 @@
 
 
     <Button
-        android:id="@+id/backrBtn"
+        android:id="@+id/enterBtn"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         style="@style/Theme.Vizor.button"
