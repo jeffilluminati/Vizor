@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         println("hello world")
 
         var navControl = Navigation.findNavController(this, R.id.navHostFragment)
+        supportActionBar!!.hide()
 
     }
 }
