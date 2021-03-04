@@ -13,7 +13,6 @@ import com.example.vizor.R
 class LoginFragment: Fragment(), View.OnClickListener {
     lateinit var navController: NavController
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
