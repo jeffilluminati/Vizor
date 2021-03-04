@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.EnterFragment"
-    android:background="#A9F1BD">
+    android:background="#ACF2C0">
 
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:src="@mipmap/ic_logo_foreground"
         android:scaleX="2"
         android:scaleY="2"
@@ -39,9 +39,8 @@
         android:text="Info"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginEnd="32dp"
-
         />
     <Button
         android:id="@+id/loginBtn"
@@ -63,6 +62,19 @@
         style="@style/Theme.Vizor.button"
         android:text="Register"
         android:layout_above="@id/loginBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        />
+
+
+    <Button
+        android:id="@+id/adminBtn"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Vizor.button"
+        android:text="Admin"
+        android:layout_above="@id/registerBtn"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"

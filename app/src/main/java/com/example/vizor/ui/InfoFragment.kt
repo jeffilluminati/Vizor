@@ -20,8 +20,7 @@ class InfoFragment: Fragment() , View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_info, container, false)
-        return a
+        return inflater.inflate(R.layout.fragment_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
