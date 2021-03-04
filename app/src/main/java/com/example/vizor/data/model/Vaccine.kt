@@ -1,5 +1,3 @@
 package com.example.vizor.data.model
 
-data class Vaccine(var diseaseName: String, var vaccineStatus: VaccineStatus, ) {
-
-}
+data class Vaccine(var diseaseName: String, var vaccineStatus: VaccineStatus, var ownerUid: String)
