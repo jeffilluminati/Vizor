@@ -5,20 +5,16 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-data class User(var uid: String, val schoolId: String) {
+data class User(var uid: String, val password: String, val myVaccines: ArrayList<Vaccine> = ArrayList()) {
 
-    private var documentRef = uid.let { Firebase.firestore.collection("users").document(it) }
-
-    constructor(uid: String, schoolId: String, myVaccines: ArrayList<Vaccine>) : this(uid, schoolId) {
-        this.documentRef = Firebase.firestore.collection("users").document(uid)
-    }
+    private var documentRef = Firebase.firestore.collection("users").document(uid)
 
     companion object {
         public fun getFromCloud(uid: String) : User {
             val documentRef = Firebase.firestore.document("users/${uid}")
-            return User(uid, documentRef.get().result?.get("schoolId") as String, documentRef.get().result?.get("myVaccines") as ArrayList<Vaccine>)
-        }
 
+            return User(uid, documentRef.get().result?.get("password") as String, documentRef.get().result?.get("myVaccines") as ArrayList<Vaccine>)
+        }
     }
 
     fun commitToCloud() {
@@ -35,7 +31,7 @@ data class User(var uid: String, val schoolId: String) {
 
     private fun getHashMap(): HashMap<String, Any?> {
         val user: HashMap<String, Any?> = hashMapOf(
-            "schoolId" to schoolId,
+            "password" to password, "myVaccines" to myVaccines
         )
 
         return user
