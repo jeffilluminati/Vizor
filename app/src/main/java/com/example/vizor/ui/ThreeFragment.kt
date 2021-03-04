@@ -22,15 +22,19 @@ class ThreeFragment : Fragment() {
     ): View? {
 
         var a = inflater.inflate(R.layout.fragment_three, container, false)
+        return a
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val navView: BottomNavigationView = requireView().findViewById(R.id.nav_view)
 
         val navController = findNavController(this.requireActivity(), R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_travelID, R.id.navigation_vaccines, R.id.navigation_history))
+                R.id.navigation_id, R.id.navigation_vaccines, R.id.navigation_history))
         navView.setupWithNavController(navController)
-        return a
     }
 
 }

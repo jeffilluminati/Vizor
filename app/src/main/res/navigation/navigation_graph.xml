@@ -21,8 +21,7 @@
         tools:layout="@layout/fragment_enter" >
         <action
             android:id="@+id/action_enterFragment_to_infoFragment"
-            app:destination="@id/infoFragment"
-            app:exitAnim="@anim/fragment_fast_out_extra_slow_in" />
+            app:destination="@id/infoFragment"/>
         <action
             android:id="@+id/action_enterFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
