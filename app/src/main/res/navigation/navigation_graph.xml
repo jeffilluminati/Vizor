@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_registrationFragment_to_enterFragment"
             app:destination="@id/enterFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_threeFragment"
+            app:destination="@id/threeFragment" />
     </fragment>
     <fragment
         android:id="@+id/threeFragment"

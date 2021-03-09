@@ -31,9 +31,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.regisBtn -> {
-
-
-                navController.navigate(R.id.action_loginFragment_to_threeFragment)
+                navController.navigate(R.id.action_registrationFragment_to_threeFragment)
             }
         }
     }
