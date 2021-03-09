@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var navControl = Navigation.findNavController(this, R.id.navHostFragment)
+
         supportActionBar!!.hide()
 
         if (auth.currentUser != null) {
