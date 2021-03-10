@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
+import com.example.vizor.data.model.User
 
 class LoginFragment: Fragment(), View.OnClickListener {
     lateinit var navController: NavController
+    lateinit var loginEditText: EditText
+    lateinit var passwordEditText: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,11 +30,17 @@ class LoginFragment: Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         requireView().findViewById<Button>(R.id.enterBtn).setOnClickListener(this)
+
+        loginEditText = view.findViewById(R.id.editTextTextPersonNameLogin)
+        passwordEditText = view.findViewById(R.id.editTextTextPasswordLogin)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.enterBtn -> navController.navigate(R.id.action_loginFragment_to_threeFragment)
+            R.id.enterBtn -> {
+                MainViewModel.currentUser = User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString())
+                navController.navigate(R.id.action_loginFragment_to_threeFragment)
+            }
         }
     }
 }

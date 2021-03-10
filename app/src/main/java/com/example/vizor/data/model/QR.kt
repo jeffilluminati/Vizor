@@ -5,7 +5,7 @@ import com.example.vizor.data.model.AES
 import net.glxn.qrgen.android.QRCode
 
 class QR(plainText: String, secret: String, ) {
-    private var qrCode: QRCode
+//    private var qrCode: QRCode
 
     companion object {
         public fun generateQRCode(text: String): Bitmap {
@@ -14,6 +14,6 @@ class QR(plainText: String, secret: String, ) {
     }
 
     init {
-        qrCode = QRCode(AES.encrypt(plainText, "Secret"))
+//        qrCode = QRCode.from(AES.encrypt(plainText.toByteArray()))
     }
 }
