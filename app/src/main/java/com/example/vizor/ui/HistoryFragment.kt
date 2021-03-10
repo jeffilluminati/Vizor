@@ -10,6 +10,9 @@ import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vizor.R
 
 class HistoryFragment: Fragment() {
@@ -25,6 +28,9 @@ class HistoryFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recyclerView = view!!.findViewById<RecyclerView>(R.id.countryRecyclerView)
+        recyclerView?.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, true)
+        recyclerView?.adapter = CountryRecyclerViewAdapter()
 
     }
 }
