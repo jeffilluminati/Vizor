@@ -1,7 +1,10 @@
 package com.example.vizor
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 
@@ -13,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var navControl = Navigation.findNavController(this, R.id.navHostFragment)
-
         supportActionBar!!.hide()
 
         if (auth.currentUser != null) {

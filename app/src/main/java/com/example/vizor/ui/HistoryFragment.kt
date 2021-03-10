@@ -1,20 +1,30 @@
 package com.example.vizor.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.example.vizor.R
 
 class HistoryFragment: Fragment() {
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         var a = inflater.inflate(R.layout.fragment_history, container, false)
         return a
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }

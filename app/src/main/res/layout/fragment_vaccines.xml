@@ -7,8 +7,9 @@
 
     <EditText
         android:id="@+id/diseaseSearch"
-        android:layout_marginTop="4dp"
-        android:layout_width="400dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="Search Diseases"
@@ -21,13 +22,16 @@
         android:drawableLeft="@drawable/ic_baseline_search_24"
         />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#8E9EF4"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/diseaseRecylerView"
         android:layout_below="@id/diseaseSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+
 
         />
-
 
 </RelativeLayout>
