@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ui.CountryFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="#2F407B"
+        android:gravity="bottom"
+        android:paddingBottom="32dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+
+
+
+        <ImageView
+            android:id="@+id/flagImageViewData"
+            android:layout_width="150dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="105dp"
+            android:src="@drawable/flag_singapore"
+            android:scaleType="fitXY"/>
+
+
+        <TextView
+            android:id="@+id/countryNameTVData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Singapore"
+            android:textSize="32sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+
+
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/localConfirmedCases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="Total confirmed cases: "
+        />
+    <TextView
+        android:id="@+id/localConfirmedRecoveries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="Total confirmed recoveries: "
+        />
+    <TextView
+        android:id="@+id/localConfirmedDeaths"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="Total confirmed deaths: "
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:textSize="14sp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Disclaimer: All data was pulled dynamically from an API. Values may be inaccurate. \n\nIf values do not load after 10 seconds, check your internet connection. "
+        />
+</LinearLayout>

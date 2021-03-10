@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="6dp"
     android:backgroundTint="#528F58"
     app:cardCornerRadius="10dp"
     app:strokeWidth="2dp"
     app:strokeColor="#000000"
+    android:id="@+id/countryCardView"
     >
 
 
@@ -54,11 +56,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/datesOfEntryTV"
             android:text = "4 Feb to 11 Feb"
-            android:textSize="21sp"
+            android:textSize="19sp"
             android:layout_toRightOf="@id/calendarimg"
             android:layout_below="@id/countryNameTV"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
+            android:textColor="@color/white"
             />
 
         <TextView
