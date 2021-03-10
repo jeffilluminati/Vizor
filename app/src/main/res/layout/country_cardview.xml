@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:backgroundTint="#528F58"
+    app:cardCornerRadius="10dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="#000000"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/flagImageView"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/flag_singapore"
+            />
+
+        <TextView
+            android:id="@+id/countryNameTV"
+            android:text="Singapore"
+            android:layout_toRightOf="@id/flagImageView"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/calendarimg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="21dp"
+            android:scaleType="centerInside"
+            android:layout_below="@id/countryNameTV"
+            android:layout_toRightOf="@id/flagImageView"
+            android:src="@drawable/calendar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/datesOfEntryTV"
+            android:text = "4 Feb to 11 Feb"
+            android:textSize="21sp"
+            android:layout_toRightOf="@id/calendarimg"
+            android:layout_below="@id/countryNameTV"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Read more"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom= "4dp"
+            android:textColor="@color/white"/>
+
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
