@@ -47,7 +47,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextTextPersonNameLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -62,7 +62,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTextPersonName"
+        android:layout_below="@id/editTextTextPersonNameLogin"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
@@ -73,7 +73,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editTextTextPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
