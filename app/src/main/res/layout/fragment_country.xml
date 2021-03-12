@@ -53,6 +53,7 @@
         android:layout_marginTop="32dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="Total confirmed cases: "
         />
     <TextView
@@ -63,6 +64,7 @@
         android:layout_marginTop="32dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="Total confirmed recoveries: "
         />
     <TextView
@@ -73,6 +75,7 @@
         android:layout_marginTop="32dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="Total confirmed deaths: "
         />
     <TextView
@@ -81,6 +84,7 @@
         android:layout_marginLeft="32dp"
         android:textSize="14sp"
         android:layout_marginRight="24dp"
+        android:textColor="@color/black"
         android:layout_marginTop="32dp"
         android:text="Disclaimer: All data was pulled dynamically from an API. Values may be inaccurate. \n\nIf values do not load after 10 seconds, check your internet connection. "
         />

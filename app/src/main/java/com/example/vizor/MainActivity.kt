@@ -22,11 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         var navControl = Navigation.findNavController(this, R.id.navHostFragment)
         supportActionBar!!.hide()
+        Log.i("12","123")
 
-        if (auth.currentUser != null) {
-            MainViewModel.currentUser = User.getFromCloud(auth.currentUser!!.uid)
-            navControl.navigate(R.id.action_loginFragment_to_threeFragment)
-        } else {
+//        if (auth.currentUser != null) {
+//            MainViewModel.currentUser = User.getFromCloud(auth.currentUser!!.uid)
+//            navControl.navigate(R.id.action_loginFragment_to_threeFragment)
+//        } else {
             auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -39,4 +40,4 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
-}
+//}

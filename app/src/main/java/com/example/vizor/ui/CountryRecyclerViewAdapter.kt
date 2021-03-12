@@ -1,11 +1,14 @@
 package com.example.vizor.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vizor.R
 
@@ -23,6 +26,15 @@ private val itemImages = intArrayOf(R.drawable.flag_canada, R.drawable.flag_chin
         image = itemView.findViewById(R.id.flagImageView)
         itemName = itemView.findViewById(R.id.countryNameTV)
         itemDescription = itemView.findViewById(R.id.datesOfEntryTV)
+
+        itemView.setOnClickListener{
+
+            var bundle = bundleOf()
+            bundle.putString("country", itemName.text.toString())
+
+            var navController = Navigation.findNavController(itemView)
+            navController.navigate(R.id.action_navigation_history_to_countryFragment, bundle)
+        }
     }
 }
 
@@ -41,6 +53,8 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     var dates = itemDescriptions[position].split(",")
 
     holder.itemDescription.text = dates[0] + " to " + dates[1]
+
+
     holder.image.setImageResource(itemImages[position])
 }
 }
