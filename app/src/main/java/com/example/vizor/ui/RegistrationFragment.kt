@@ -46,7 +46,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.regisBtn -> {
-                val user = User.registerUser(userEditText.text.toString(), userEditText.text.toString())
+                val user = User.registerUser(userEditText.text.toString(), passwordEditText.text.toString())
                 if (user != null) {
                     MainViewModel.currentUser = user
                     navController.navigate(R.id.action_registrationFragment_to_threeFragment)

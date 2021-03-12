@@ -32,7 +32,7 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
         }
 
         public fun registerUser(ID: String, password: String): User? {
-            return if (!ID.matches(Regex("[ST][0-9]{5}[A-Z]"))) {
+            return if (!ID.matches(Regex("[ST][0-9]{7}[A-Z]"))) {
                 null
             } else if (password.length < 8) {
                 null

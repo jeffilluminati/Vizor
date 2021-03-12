@@ -28,7 +28,7 @@ class HistoryFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view!!.findViewById<RecyclerView>(R.id.countryRecyclerView)
+        val recyclerView = this.requireView().findViewById<RecyclerView>(R.id.countryRecyclerView)
         recyclerView?.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, true)
         recyclerView?.adapter = CountryRecyclerViewAdapter()
 
