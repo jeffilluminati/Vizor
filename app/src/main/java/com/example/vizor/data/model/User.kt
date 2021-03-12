@@ -28,6 +28,7 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
                 }
             }
 
+
             return null
         }
 
