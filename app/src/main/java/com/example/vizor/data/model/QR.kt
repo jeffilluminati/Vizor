@@ -7,21 +7,15 @@ import net.glxn.qrgen.core.image.ImageType
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.SecretKeySpec
 
-class QR(plainText: String, secret: String, ) {
-    private var qrCode: QRCode
+class QR(plainText: String, secret: String) {
+    private var qrCode: QRCode =
+        QRCode.from(AES.encrypt(plainText.encodeToByteArray(), SecretKeySpec(SECRET.encodeToByteArray(), "AES")).decodeToString())
 
     companion object {
-        public fun generateQRCode(text: String): Bitmap {
-            return QRCode.from(text).withSize(1000, 1000).bitmap()
-        }
+        const val SECRET = "SECRET"
     }
 
-    init {
-        val secret = "Secret"
-        qrCode = QRCode.from(AES.encrypt(plainText.encodeToByteArray(), SecretKeySpec(secret.encodeToByteArray(), "AES")).decodeToString())
-    }
-
-    public fun getQRCodeBMP(): Bitmap {
-        return qrCode.bitmap()
+    public fun getQRCodeBMP(): QRCode? {
+        return qrCode.to(ImageType.BMP)
     }
 }
