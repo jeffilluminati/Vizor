@@ -1,5 +1,6 @@
 package com.example.vizor.data.model
 
+import android.widget.Toast
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -30,11 +31,17 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
             return null
         }
 
-        public fun registerUser(ID: String, password: String): User {
-            val user = User(password, ID)
-            user.commitToCloud()
+        public fun registerUser(ID: String, password: String): User? {
+            return if (!ID.matches(Regex("[ST][0-9]{5}[A-Z]"))) {
+                null
+            } else if (password.length < 8) {
+                null
+            } else {
+                val user = User(password, ID)
+                user.commitToCloud()
 
-            return user
+                user
+            }
         }
 
     }

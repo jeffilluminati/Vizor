@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.vizor.MainActivity
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
+import com.example.vizor.data.model.MainViewModel.Companion.currentUser
+import com.example.vizor.data.model.User
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
     lateinit var navController: NavController
     lateinit var passwordEditText: EditText
     lateinit var userEditText: EditText
+    lateinit var warningTextView: TextView
 
 
     override fun onCreateView(
@@ -34,19 +39,20 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
         passwordEditText = view.findViewById(R.id.editTextTextPasswordRegistration)
         userEditText = view.findViewById(R.id.editTextTextPersonNameRegistration)
+        warningTextView = view.findViewById(R.id.warningTextRegistration)
+        warningTextView.text = ""
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.regisBtn -> {
-                val password = passwordEditText.text.toString(); val ID = userEditText.text.toString()
-                if (!ID.matches(Regex("[ST][0-9]{5}[A-Z]"))) {
-                    Toast.makeText(context, "Please enter a valid ID: Follows standard Singapore ID structure ", Toast.LENGTH_SHORT)
-                } else if (password.length < 8) {
-                    Toast.makeText(context, "Please enter a valid password: At least 8 characters", Toast.LENGTH_SHORT)
+                val user = User.registerUser(userEditText.text.toString(), userEditText.text.toString())
+                if (user != null) {
+                    MainViewModel.currentUser = user
+                    navController.navigate(R.id.action_registrationFragment_to_threeFragment)
+                } else {
+                    warningTextView.text = "Your ID must follow Singapore ID convention and password must have a minimum of 8 characters."
                 }
-
-                navController.navigate(R.id.action_registrationFragment_to_threeFragment)
             }
         }
     }

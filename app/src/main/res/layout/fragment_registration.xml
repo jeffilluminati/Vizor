@@ -98,6 +98,16 @@
         android:layout_marginEnd="48dp"
         />
 
+    <TextView
+        android:id="@+id/warningTextRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextTextPasswordRegistration"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        android:textColor="#FF0000" />
 
 
 </RelativeLayout>

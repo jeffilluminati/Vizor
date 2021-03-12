@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -17,6 +18,7 @@ class LoginFragment: Fragment(), View.OnClickListener {
     lateinit var navController: NavController
     lateinit var loginEditText: EditText
     lateinit var passwordEditText: EditText
+    lateinit var warningText: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,13 +35,19 @@ class LoginFragment: Fragment(), View.OnClickListener {
 
         loginEditText = view.findViewById(R.id.editTextTextPersonNameLogin)
         passwordEditText = view.findViewById(R.id.editTextTextPasswordLogin)
+        warningText = view.findViewById(R.id.warningTextLogin)
+        warningText.text = ""
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.enterBtn -> {
                 MainViewModel.currentUser = User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString())
-                navController.navigate(R.id.action_loginFragment_to_threeFragment)
+                if (MainViewModel.currentUser != null) {
+                    navController.navigate(R.id.action_loginFragment_to_threeFragment)
+                } else {
+                    warningText.text = "Please enter valid login credentials"
+                }
             }
         }
     }

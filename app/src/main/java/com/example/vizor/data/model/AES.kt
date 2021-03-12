@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec
 
 class AES {
     companion object {
-        public fun encrypt(plaintext: ByteArray, key: SecretKey, IV: ByteArray): ByteArray {
+        public fun encrypt(plaintext: ByteArray, key: SecretKey): ByteArray {
             val cipher = Cipher.getInstance("AES")
             val keySpec = SecretKeySpec(key.encoded, "AES")
             cipher.init(Cipher.ENCRYPT_MODE, keySpec)
