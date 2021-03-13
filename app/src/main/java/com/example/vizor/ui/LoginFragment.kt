@@ -20,6 +20,10 @@ class LoginFragment: Fragment(), View.OnClickListener {
     lateinit var passwordEditText: EditText
     lateinit var warningText: TextView
 
+    companion object {
+        var loginFragment: LoginFragment? = null
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,18 +41,21 @@ class LoginFragment: Fragment(), View.OnClickListener {
         passwordEditText = view.findViewById(R.id.editTextTextPasswordLogin)
         warningText = view.findViewById(R.id.warningTextLogin)
         warningText.text = ""
+
+        loginFragment = this
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.enterBtn -> {
-                MainViewModel.currentUser = User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString())
-                if (MainViewModel.currentUser != null) {
-                    navController.navigate(R.id.action_loginFragment_to_threeFragment)
-                } else {
-                    warningText.text = "Please enter valid login credentials"
-                }
-            }
+            R.id.enterBtn -> User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString(), true)
+        }
+    }
+
+    public fun onUserUpdated() {
+        if (MainViewModel.currentUser != null) {
+            navController.navigate(R.id.action_loginFragment_to_threeFragment)
+        } else {
+            warningText.text = "Please enter valid login credentials"
         }
     }
 }

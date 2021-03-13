@@ -9,7 +9,7 @@ import javax.crypto.spec.SecretKeySpec
 
 class QR(plainText: String, secret: String) {
     private var qrCode: QRCode =
-        QRCode.from(AES.encrypt(plainText.encodeToByteArray(), SecretKeySpec(SECRET.encodeToByteArray(), "AES")).decodeToString())
+        QRCode.from(AES.encrypt(plainText.toByteArray(), SecretKeySpec(SECRET.toByteArray(), "AES")).decodeToString())
 
     companion object {
         const val SECRET = "SECRET"
