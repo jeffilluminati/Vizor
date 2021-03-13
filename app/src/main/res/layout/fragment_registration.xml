@@ -96,6 +96,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="152dp"
         android:layout_marginEnd="48dp"
+        android:background="@color/black"
         />
 
     <TextView
