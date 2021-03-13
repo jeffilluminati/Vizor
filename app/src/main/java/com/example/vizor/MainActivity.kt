@@ -3,7 +3,10 @@ package com.example.vizor
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.widget.ViewAnimator
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val myViewModel: MainViewModel by viewModels()
 
         val navControl = Navigation.findNavController(this, R.id.navHostFragment)
         supportActionBar!!.hide()
