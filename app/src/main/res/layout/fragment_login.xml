@@ -76,6 +76,7 @@
         android:id="@+id/editTextTextPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:ems="10"
         android:layout_below="@id/textView2"
         android:layout_marginTop="8dp"
@@ -92,6 +93,7 @@
         android:text="Login"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:background="@color/black"
         android:layout_marginBottom="152dp"
         android:layout_marginEnd="48dp"
         />

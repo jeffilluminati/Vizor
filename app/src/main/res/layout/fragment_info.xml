@@ -52,6 +52,7 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         style="@style/Theme.Vizor.button"
+        android:background="@color/black"
         android:text="Back"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

@@ -16,6 +16,7 @@
     <style name="Theme.Vizor.button" parent="@style/Widget.MaterialComponents.Button">
         <item name="colorButtonNormal"> #7BB177</item>
         <item name="backgroundTint">#7BB177</item>
+        <item name="backgroundColor">#7BB177</item>
         <item name="color">#7BB177</item>
         <item name="android:textColor">#D6FFE1</item>
         <item name="fontFamily">Roboto</item>
