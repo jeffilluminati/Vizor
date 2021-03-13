@@ -13,11 +13,15 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
     private var documentRef = Firebase.firestore.collection("users").document(ID)
 
     companion object {
-        private fun getFromCloud(ID: String) {
+        private fun getFromCloud(ID: String, isFromLoginFragment: Boolean) {
             val documentRef = Firebase.firestore.document("users/${ID}")
 
             documentRef.get().addOnSuccessListener { result ->
                 currentUser = User(result.getString("password")!!, result.getString("ID")!!, result.get("myVaccines") as ArrayList<Vaccine>)
+
+                if (isFromLoginFragment) {
+                    LoginFragment.loginFragment?.onUserUpdated()
+                }
             }
         }
 
@@ -26,12 +30,8 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
             referenceToUsers.addOnSuccessListener { result ->
                 for (document in result.documents) {
                     if (((document.get("ID")!! as String) == ID && (document.get("password")!! as String) == password)) {
-                        getFromCloud(document.id)
+                        getFromCloud(document.id, isFromLoginFragment)
                     }
-                }
-
-                if (isFromLoginFragment) {
-                    LoginFragment.loginFragment?.onUserUpdated()
                 }
             }
         }
