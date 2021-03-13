@@ -1,10 +1,7 @@
-package com.example.eventtracker.data.model
+package com.example.vizor.data.model
 
-import android.graphics.Bitmap
-import com.example.vizor.data.model.AES
 import net.glxn.qrgen.android.QRCode
 import net.glxn.qrgen.core.image.ImageType
-import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.SecretKeySpec
 
 class QR(plainText: String, secret: String) {
@@ -15,7 +12,7 @@ class QR(plainText: String, secret: String) {
         const val SECRET = "SECRET"
     }
 
-    public fun getQRCodeBMP(): QRCode? {
+    fun getQRCodeBMP(): QRCode? {
         return qrCode.to(ImageType.BMP)
     }
 }

@@ -15,10 +15,10 @@ import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
-    lateinit var passwordEditText: EditText
-    lateinit var userEditText: EditText
-    lateinit var warningTextView: TextView
+    private lateinit var navController: NavController
+    private lateinit var passwordEditText: EditText
+    private lateinit var userEditText: EditText
+    private lateinit var warningTextView: TextView
 
     companion object {
         var registrationFragment: RegistrationFragment? = null
@@ -31,7 +31,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_registration, container, false)
+        val a = inflater.inflate(R.layout.fragment_registration, container, false)
         return a
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

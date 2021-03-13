@@ -22,7 +22,7 @@ class HistoryFragment: Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_history, container, false)
+        val a = inflater.inflate(R.layout.fragment_history, container, false)
         return a
     }
 

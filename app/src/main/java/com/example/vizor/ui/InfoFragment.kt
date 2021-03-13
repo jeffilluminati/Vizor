@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.example.vizor.R
 
 class InfoFragment: Fragment() , View.OnClickListener {
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
 
     override fun onCreateView(

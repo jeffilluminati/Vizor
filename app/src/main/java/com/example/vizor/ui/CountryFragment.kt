@@ -46,14 +46,14 @@ class CountryFragment : Fragment() {
 
         Log.i("1000", "123")
 
-        var a = requireView().findViewById<ImageView>(R.id.flagImageViewData)
-        var b = requireView().findViewById<TextView>(R.id.countryNameTVData)
+        val a = requireView().findViewById<ImageView>(R.id.flagImageViewData)
+        val b = requireView().findViewById<TextView>(R.id.countryNameTVData)
 
 //        val model: MyViewModel by activityViewModels()
-        b.text = arguments!!.get("country").toString()
+        b.text = requireArguments().get("country").toString()
 
         var index = 0
-        when(arguments!!.get("country")){
+        when(requireArguments().get("country")){
             "Singapore" -> {
                 a.setImageResource(R.drawable.flag_singapore)
                 index = 153
@@ -85,8 +85,8 @@ class CountryFragment : Fragment() {
         val url = "https://api.covid19api.com/summary"
 //
 //
-        val stringRequest = StringRequest(Request.Method.GET, url, object : Response.Listener<String?> {
-            override fun onResponse(response: String?) {
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            { response ->
                 try {
                     Log.i("WTF", "WT2F2")
                     val jsonObject = JSONObject(response)
@@ -98,24 +98,17 @@ class CountryFragment : Fragment() {
                     requireView().findViewById<TextView>(R.id.localConfirmedRecoveries).text = "Total Confirmed recoveries: " + NumberFormat.getNumberInstance(Locale.US).format(jsonObjectChosen.get("TotalRecovered"))
                     requireView().findViewById<TextView>(R.id.localConfirmedDeaths).text = "Total Confirmed deaths: " + NumberFormat.getNumberInstance(Locale.US).format(jsonObjectChosen.get("TotalDeaths"))
                     for (i in 0..1){
-//                        countryDB = countryDB + Country(countryNameList.get(i), jsonObjectList.get(i).getString("TotalConfirmed").toInt(), jsonObjectList.get(i).getString("TotalDeaths").toInt(), jsonObjectList.get(i).getString("TotalRecovered").toInt())
+                        //                        countryDB = countryDB + Country(countryNameList.get(i), jsonObjectList.get(i).getString("TotalConfirmed").toInt(), jsonObjectList.get(i).getString("TotalDeaths").toInt(), jsonObjectList.get(i).getString("TotalRecovered").toInt())
 
                     }
                     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                    simpleDateFormat.format(Calendar.getInstance().getTime())
+                    simpleDateFormat.format(Calendar.getInstance().time)
 
-                }
-                catch(e: Exception){
+                } catch(e: Exception){
                     Log.i("WTF", "WTF12")
                 }
             }
-        }, object : Response.ErrorListener {
-            override fun onErrorResponse(error: VolleyError?) {
-
-                Log.i("WTF", "WTF22")
-
-            }
-        })
+        ) { Log.i("WTF", "WTF22") }
 
 
         val requestQueue: RequestQueue = Volley.newRequestQueue(context)

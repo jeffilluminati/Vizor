@@ -2,35 +2,27 @@ package com.example.vizor
 
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
-import com.example.vizor.data.model.AES
 import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
 import java.nio.charset.StandardCharsets
-import java.util.*
-import javax.crypto.KeyGenerator
-import javax.crypto.spec.DESKeySpec
-import javax.crypto.spec.SecretKeySpec
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
-    val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var navControl = Navigation.findNavController(this, R.id.navHostFragment)
+        val navControl = Navigation.findNavController(this, R.id.navHostFragment)
         supportActionBar!!.hide()
 
         if (auth.currentUser != null) {

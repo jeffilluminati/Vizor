@@ -13,7 +13,7 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
     private var documentRef = Firebase.firestore.collection("users").document(ID)
 
     companion object {
-        public fun getFromCloud(ID: String) {
+        private fun getFromCloud(ID: String) {
             val documentRef = Firebase.firestore.document("users/${ID}")
 
             documentRef.get().addOnSuccessListener { result ->
@@ -21,7 +21,7 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
             }
         }
 
-        public fun tryLogin(ID: String, password: String, isFromLoginFragment: Boolean) {
+        fun tryLogin(ID: String, password: String, isFromLoginFragment: Boolean) {
             val referenceToUsers = Firebase.firestore.collection("users").get()
             referenceToUsers.addOnSuccessListener { result ->
                 for (document in result.documents) {
@@ -36,7 +36,7 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
             }
         }
 
-        public fun registerUser(ID: String, password: String) {
+        fun registerUser(ID: String, password: String) {
             val referenceToUsers = Firebase.firestore.collection("users").get()
             referenceToUsers.addOnSuccessListener { result ->
                 var isValid = ID.matches(Regex("[ST][0-9]{7}[A-Z]")) && password.length >= 8

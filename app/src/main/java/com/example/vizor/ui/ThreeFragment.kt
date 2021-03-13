@@ -21,7 +21,7 @@ class ThreeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_three, container, false)
+        val a = inflater.inflate(R.layout.fragment_three, container, false)
         return a
     }
 

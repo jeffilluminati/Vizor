@@ -18,21 +18,20 @@ private val itemTitles = arrayOf("Canada", "China", "Israel", "New Zealand", "Un
 private val itemDescriptions = arrayOf("19 Jan,22 Jan", "28 Jan,1 Feb", "6 Feb,11 Feb", "14 Feb,15 Feb", "22 Feb,12 Mar", "15 Mar,19 Mar")
 private val itemImages = intArrayOf(R.drawable.flag_canada, R.drawable.flag_china, R.drawable.flag_israel, R.drawable.flag_newzealand, R.drawable.flag_uk, R.drawable.flag_usa)
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    var image: ImageView
-    var itemName: TextView
+    var image: ImageView = itemView.findViewById(R.id.flagImageView)
+        var itemName: TextView
     var itemDescription: TextView
 
     init{
-        image = itemView.findViewById(R.id.flagImageView)
         itemName = itemView.findViewById(R.id.countryNameTV)
         itemDescription = itemView.findViewById(R.id.datesOfEntryTV)
 
         itemView.setOnClickListener{
 
-            var bundle = bundleOf()
+            val bundle = bundleOf()
             bundle.putString("country", itemName.text.toString())
 
-            var navController = Navigation.findNavController(itemView)
+            val navController = Navigation.findNavController(itemView)
             navController.navigate(R.id.action_navigation_history_to_countryFragment, bundle)
         }
     }
@@ -50,7 +49,7 @@ override fun getItemCount(): Int {
 override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.itemName.text = itemTitles[position]
 
-    var dates = itemDescriptions[position].split(",")
+    val dates = itemDescriptions[position].split(",")
 
     holder.itemDescription.text = dates[0] + " to " + dates[1]
 

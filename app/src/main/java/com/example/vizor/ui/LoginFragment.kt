@@ -15,10 +15,10 @@ import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
 
 class LoginFragment: Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
-    lateinit var loginEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var warningText: TextView
+    private lateinit var navController: NavController
+    private lateinit var loginEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var warningText: TextView
 
     companion object {
         var loginFragment: LoginFragment? = null
@@ -29,7 +29,7 @@ class LoginFragment: Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var a = inflater.inflate(R.layout.fragment_login, container, false)
+        val a = inflater.inflate(R.layout.fragment_login, container, false)
         return a
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class LoginFragment: Fragment(), View.OnClickListener {
         }
     }
 
-    public fun onUserUpdated() {
+    fun onUserUpdated() {
         if (MainViewModel.currentUser != null) {
             navController.navigate(R.id.action_loginFragment_to_threeFragment)
         } else {
