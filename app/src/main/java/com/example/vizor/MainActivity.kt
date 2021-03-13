@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
                 navControl.navigate(R.id.action_enterFragment_to_threeFragment)
             } catch (ex: IOException) {
-                Log.e("MainActivity", "Failed to write to file: $ex")
+                Log.e("MainActivity", "Failed to read from file: $ex")
             }
         } else {
             auth.signInAnonymously()
@@ -93,10 +93,15 @@ class MainActivity : AppCompatActivity() {
 // Create a file with this name, or replace an entire existing file
 // that has the same name. Note that you cannot append to an existing file,
 // and the file name cannot contain path separators.
-                val fileToWrite = "loginDetails.txt"
+                val fileToWrite = File(getDir("", MODE_PRIVATE), "loginDetails.txt")
+
+                if (fileToWrite.exists()) {
+                    fileToWrite.delete()
+                }
+
                 val encryptedFile = EncryptedFile.Builder(
                         applicationContext,
-                        File(getDir("", MODE_PRIVATE), fileToWrite),
+                        fileToWrite,
                         mainKey,
                         EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
                 ).build()

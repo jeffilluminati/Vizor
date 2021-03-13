@@ -1,9 +1,8 @@
 package com.example.vizor.data.model
 
-import android.widget.Toast
-import com.example.vizor.MainActivity
 import com.example.vizor.data.model.MainViewModel.Companion.currentUser
 import com.example.vizor.ui.LoginFragment
+import com.example.vizor.ui.RegistrationFragment
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -37,19 +36,24 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
             }
         }
 
-        public fun registerUser(ID: String, password: String): User? {
-            return if (!ID.matches(Regex("[ST][0-9]{7}[A-Z]"))) {
-                null
-            } else if (password.length < 8) {
-                null
-            } else {
-                val user = User(password, ID)
-                user.commitToCloud()
+        public fun registerUser(ID: String, password: String) {
+            val referenceToUsers = Firebase.firestore.collection("users").get()
+            referenceToUsers.addOnSuccessListener { result ->
+                var isValid = ID.matches(Regex("[ST][0-9]{7}[A-Z]")) && password.length >= 8
+                for (document in result.documents) {
+                    if (((document.get("ID")!! as String) == ID)) {
+                        isValid = false
+                    }
+                }
 
-                user
+                if (isValid) {
+                    val user = User(password, ID)
+                    user.commitToCloud()
+                    currentUser = user
+                }
+                RegistrationFragment.registrationFragment?.onUserUpdated(isValid)
             }
         }
-
     }
 
     fun commitToCloud() {
