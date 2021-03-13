@@ -14,7 +14,7 @@ class VaccineFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_vaccines, container, false)
+        val a = inflater.inflate(R.layout.fragment_vaccines, container, false)
         return a
     }
 }

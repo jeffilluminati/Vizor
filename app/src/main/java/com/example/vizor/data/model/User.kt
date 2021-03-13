@@ -1,6 +1,8 @@
 package com.example.vizor.data.model
 
-import android.widget.Toast
+import com.example.vizor.data.model.MainViewModel.Companion.currentUser
+import com.example.vizor.ui.LoginFragment
+import com.example.vizor.ui.RegistrationFragment
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,40 +13,47 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
     private var documentRef = Firebase.firestore.collection("users").document(ID)
 
     companion object {
-        public fun getFromCloud(ID: String) : User {
+        private fun getFromCloud(ID: String) {
             val documentRef = Firebase.firestore.document("users/${ID}")
 
-            return User(documentRef.get().result?.get("password") as String,
-                documentRef.get().result?.get("ID") as String,
-                documentRef.get().result?.get("myVaccines") as ArrayList<Vaccine>)
+            documentRef.get().addOnSuccessListener { result ->
+                currentUser = User(result.getString("password")!!, result.getString("ID")!!, result.get("myVaccines") as ArrayList<Vaccine>)
+            }
         }
 
-        public fun tryLogin(ID: String, password: String): User? {
-            for (document in
-                Firebase.firestore.collection("users")
-                .get().result?.documents!!) {
-                if (((document.get("ID")!! as String) == ID && (document.get("password")!! as String) == password)) {
-                    return getFromCloud(document.id)
+        fun tryLogin(ID: String, password: String, isFromLoginFragment: Boolean) {
+            val referenceToUsers = Firebase.firestore.collection("users").get()
+            referenceToUsers.addOnSuccessListener { result ->
+                for (document in result.documents) {
+                    if (((document.get("ID")!! as String) == ID && (document.get("password")!! as String) == password)) {
+                        getFromCloud(document.id)
+                    }
+                }
+
+                if (isFromLoginFragment) {
+                    LoginFragment.loginFragment?.onUserUpdated()
                 }
             }
-
-
-            return null
         }
 
-        public fun registerUser(ID: String, password: String): User? {
-            return if (!ID.matches(Regex("[ST][0-9]{7}[A-Z]"))) {
-                null
-            } else if (password.length < 8) {
-                null
-            } else {
-                val user = User(password, ID)
-                user.commitToCloud()
+        fun registerUser(ID: String, password: String) {
+            val referenceToUsers = Firebase.firestore.collection("users").get()
+            referenceToUsers.addOnSuccessListener { result ->
+                var isValid = ID.matches(Regex("[ST][0-9]{7}[A-Z]")) && password.length >= 8
+                for (document in result.documents) {
+                    if (((document.get("ID")!! as String) == ID)) {
+                        isValid = false
+                    }
+                }
 
-                user
+                if (isValid) {
+                    val user = User(password, ID)
+                    user.commitToCloud()
+                    currentUser = user
+                }
+                RegistrationFragment.registrationFragment?.onUserUpdated(isValid)
             }
         }
-
     }
 
     fun commitToCloud() {

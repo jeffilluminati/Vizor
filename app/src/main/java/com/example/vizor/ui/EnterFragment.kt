@@ -13,13 +13,13 @@ import com.example.vizor.R
 
 class EnterFragment: Fragment(), View.OnClickListener {
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var a = inflater.inflate(R.layout.fragment_enter, container, false)
+        val a = inflater.inflate(R.layout.fragment_enter, container, false)
 
         return a
     }

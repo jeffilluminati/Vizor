@@ -15,17 +15,21 @@ import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
 
 class LoginFragment: Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
-    lateinit var loginEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var warningText: TextView
+    private lateinit var navController: NavController
+    private lateinit var loginEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var warningText: TextView
+
+    companion object {
+        var loginFragment: LoginFragment? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var a = inflater.inflate(R.layout.fragment_login, container, false)
+        val a = inflater.inflate(R.layout.fragment_login, container, false)
         return a
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,18 +41,21 @@ class LoginFragment: Fragment(), View.OnClickListener {
         passwordEditText = view.findViewById(R.id.editTextTextPasswordLogin)
         warningText = view.findViewById(R.id.warningTextLogin)
         warningText.text = ""
+
+        loginFragment = this
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.enterBtn -> {
-                MainViewModel.currentUser = User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString())
-                if (MainViewModel.currentUser != null) {
-                    navController.navigate(R.id.action_loginFragment_to_threeFragment)
-                } else {
-                    warningText.text = "Please enter valid login credentials"
-                }
-            }
+            R.id.enterBtn -> User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString(), true)
+        }
+    }
+
+    fun onUserUpdated() {
+        if (MainViewModel.currentUser != null) {
+            navController.navigate(R.id.action_loginFragment_to_threeFragment)
+        } else {
+            warningText.text = "Please enter valid login credentials"
         }
     }
 }

@@ -10,17 +10,19 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.vizor.MainActivity
 import com.example.vizor.R
 import com.example.vizor.data.model.MainViewModel
-import com.example.vizor.data.model.MainViewModel.Companion.currentUser
 import com.example.vizor.data.model.User
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
-    lateinit var passwordEditText: EditText
-    lateinit var userEditText: EditText
-    lateinit var warningTextView: TextView
+    private lateinit var navController: NavController
+    private lateinit var passwordEditText: EditText
+    private lateinit var userEditText: EditText
+    private lateinit var warningTextView: TextView
+
+    companion object {
+        var registrationFragment: RegistrationFragment? = null
+    }
 
 
     override fun onCreateView(
@@ -29,7 +31,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_registration, container, false)
+        val a = inflater.inflate(R.layout.fragment_registration, container, false)
         return a
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,19 +43,23 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         userEditText = view.findViewById(R.id.editTextTextPersonNameRegistration)
         warningTextView = view.findViewById(R.id.warningTextRegistration)
         warningTextView.text = ""
+
+        registrationFragment = this
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.regisBtn -> {
                 val user = User.registerUser(userEditText.text.toString(), passwordEditText.text.toString())
-                if (user != null) {
-                    MainViewModel.currentUser = user
-                    navController.navigate(R.id.action_registrationFragment_to_threeFragment)
-                } else {
-                    warningTextView.text = "Your ID must follow Singapore ID convention and password must have a minimum of 8 characters."
-                }
             }
+        }
+    }
+
+    fun onUserUpdated(isValid: Boolean) {
+        if (isValid) {
+            navController.navigate(R.id.action_registrationFragment_to_threeFragment)
+        } else {
+            warningTextView.text = "Your ID must follow Singapore ID convention and password must have a minimum of 8 characters."
         }
     }
 }

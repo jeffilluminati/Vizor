@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.example.vizor.R
 
 class IdFragment : Fragment(), View.OnClickListener {
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,7 @@ class IdFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        var a = inflater.inflate(R.layout.fragment_id, container, false)
+        val a = inflater.inflate(R.layout.fragment_id, container, false)
         return a
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
