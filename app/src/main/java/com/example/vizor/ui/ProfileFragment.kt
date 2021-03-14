@@ -33,12 +33,15 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.vizor.data.model.MainViewModel
 import kotlin.jvm.Throws
 
 class ProfileFragment : Fragment(){
     private lateinit var imageView: ImageView
     lateinit var currentPhotoPath: String
+    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -46,13 +49,10 @@ class ProfileFragment : Fragment(){
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val model: MainViewModel by activityViewModels()
 
-//
-//        var galleryBtn = findViewById<Button>(R.id.button2)
-//        galleryBtn.setOnClickListener(){
-//            var gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//            startActivityForResult(gallery, 998)
-//        }
+        currentPhotoPath = model.getUri()
+
 
 
 
@@ -62,11 +62,25 @@ class ProfileFragment : Fragment(){
         return a
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        val model: MainViewModel by activityViewModels()
+
+        imageView = requireView().findViewById(R.id.profileImageView)
+        currentPhotoPath = model.getUri()
+        if (currentPhotoPath != ""){
+            imageView.setImageURI(currentPhotoPath.toUri()
+            )
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         val model: MainViewModel by activityViewModels()
+
+        requireView().findViewById<TextView>(R.id.userIDTextView).text = MainViewModel.currentUser!!.ID
 
 
         imageView = requireView().findViewById(R.id.profileImageView)
@@ -84,6 +98,24 @@ class ProfileFragment : Fragment(){
             model.setUri(currentPhotoPath)
 
         }
+
+
+
+        var galleryBtn = requireView().findViewById<Button>(R.id.galleryBtn)
+        galleryBtn.setOnClickListener(){
+            var gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, 998)
+
+            imageView.setImageURI(currentPhotoPath.toUri())
+
+            model.setUri(currentPhotoPath)
+        }
+        navController = Navigation.findNavController(view)
+
+        requireView().findViewById<Button>(R.id.infoBtn2).setOnClickListener{
+            navController.navigate(R.id.action_profileFragment_to_infoFragment2)
+        }
+
     }
 fun askCameraPermissions() {
     if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {

@@ -90,4 +90,15 @@
         android:layout_marginTop="32dp"
         android:text="Disclaimer: All data was pulled dynamically from an API. Values may be inaccurate. \n\nIf values do not load after 10 seconds, check your internet connection. "
         />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="120dp"
+        android:src="@mipmap/ic_logo_foreground"
+        android:scaleX="2"
+        android:scaleY="2"
+        />
 </LinearLayout>

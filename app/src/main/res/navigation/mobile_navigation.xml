@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_id">
         <action
             android:id="@+id/action_navigation_id_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -34,7 +38,15 @@
         android:id="@+id/profileFragment"
         android:name="com.example.vizor.ui.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_infoFragment2"
+            app:destination="@id/infoFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/countryFragment"
         android:name="com.example.vizor.ui.CountryFragment"
@@ -44,4 +56,9 @@
             android:name="country"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/infoFragment2"
+        android:name="com.example.vizor.ui.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>
