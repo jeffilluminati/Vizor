@@ -47,6 +47,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_enterFragment_to_adminFragment"
+            app:destination="@id/adminFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -68,7 +75,11 @@
         tools:layout="@layout/fragment_registration" >
         <action
             android:id="@+id/action_registrationFragment_to_enterFragment"
-            app:destination="@id/enterFragment" />
+            app:destination="@id/enterFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_registrationFragment_to_threeFragment"
             app:destination="@id/threeFragment"
@@ -82,4 +93,9 @@
         android:name="com.example.vizor.ui.ThreeFragment"
         android:label="fragment_three"
         tools:layout="@layout/fragment_three" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.vizor.ui.AdminFragment"
+        android:label="AdminFragment"
+        tools:layout="@layout/fragment_admin"/>
 </navigation>

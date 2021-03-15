@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="no_vaccine">#FF6C6C</color>
+    <color name="vaccine_pending">#EBEBEB</color>
+    <color name="vaccine_received">#7CE192</color>
 </resources>

@@ -1,7 +1,58 @@
-<androidx.cardview.widget.CardView
-    android:layout_height="match_parent"
+<androidx.cardview.widget.CardView android:layout_height="240dp"
+    android:id="@+id/diseaseCardView"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent">
+    android:layout_width="176dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="24dp"
+    android:backgroundTint="#FF6C6C">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            >
+
+            <TextView
+                android:id="@+id/diseaseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="COVID-19"
+                android:textSize="24sp"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/diseaseImageView"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:src="@drawable/disease_covid"
+            android:scaleType="centerCrop"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/diseaseStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="No Vaccination"/>
+
+
+
+    </LinearLayout>
 
 
 

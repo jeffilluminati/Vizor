@@ -30,6 +30,7 @@ class EnterFragment: Fragment(), View.OnClickListener {
         requireView().findViewById<Button>(R.id.registerBtn).setOnClickListener(this)
         requireView().findViewById<Button>(R.id.infoBtn).setOnClickListener(this)
         requireView().findViewById<Button>(R.id.loginBtn).setOnClickListener(this)
+        requireView().findViewById<Button>(R.id.adminBtn).setOnClickListener(this)
     }
 
     override fun onClick(v: View?){
@@ -37,6 +38,7 @@ class EnterFragment: Fragment(), View.OnClickListener {
             R.id.loginBtn -> navController.navigate(R.id.action_enterFragment_to_loginFragment)
             R.id.registerBtn -> navController.navigate(R.id.action_enterFragment_to_registrationFragment)
             R.id.infoBtn -> navController.navigate(R.id.action_enterFragment_to_infoFragment)
+            R.id.adminBtn -> navController.navigate(R.id.action_enterFragment_to_adminFragment)
         }
     }
 }
