@@ -50,13 +50,13 @@
         android:id="@+id/editTextTextPersonNameLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_below="@id/textView"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/textView2"
@@ -76,13 +76,13 @@
         android:id="@+id/editTextTextPasswordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:ems="10"
         android:layout_below="@id/textView2"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:text="Password" />
+        android:textColor="@color/black" />
 
 
     <Button

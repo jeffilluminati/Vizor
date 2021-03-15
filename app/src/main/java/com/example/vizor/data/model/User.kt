@@ -8,9 +8,43 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-data class User(var password: String, val ID: String, val myVaccines: ArrayList<Vaccine> = ArrayList()) {
+data class User(var password: String, val ID: String) {
 
     private var documentRef = Firebase.firestore.collection("users").document(ID)
+    private var myVaccines: ArrayList<Vaccine> = ArrayList()
+
+    init {
+        myVaccines.add(Vaccine("COVID-19", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Hepatitis B", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Polio", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Diphtheria", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Tetanus", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("H1N1", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Typhoid", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("Yellow Fever", generateRandomVaccineStatus()))
+    }
+
+    private fun generateRandomVaccineStatus(): VaccineStatus {
+        return VaccineStatus("", "", "", "")
+    }
+//        return when (Random().nextInt(7)+1) {
+//            1 -> {
+//                VaccineStatus()
+//            }
+//            2 -> {
+//                VaccineStatus()
+//            }
+//            3 -> {
+//                VaccineStatus()
+//            }
+//            4 -> {
+//                VaccineStatus()
+//            }
+//            else -> {
+//                VaccineStatus()
+//            }
+//        }
+//    }
 
     companion object {
         private fun getFromCloud(ID: String, isFromLoginFragment: Boolean) {
@@ -54,6 +88,10 @@ data class User(var password: String, val ID: String, val myVaccines: ArrayList<
                 RegistrationFragment.registrationFragment?.onUserUpdated(isValid)
             }
         }
+    }
+
+    constructor(password: String, ID: String, myVaccines: ArrayList<Vaccine>) : this(password, ID) {
+        this.myVaccines = myVaccines
     }
 
     fun commitToCloud() {

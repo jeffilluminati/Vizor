@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val myViewModel: MainViewModel by viewModels()
 
         val navControl = Navigation.findNavController(this, R.id.navHostFragment)
+        MainViewModel.navController = navControl
         supportActionBar!!.hide()
 
         if (auth.currentUser != null) {
@@ -59,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 User.tryLogin(ID, password, false)
 
                 navControl.navigate(R.id.action_enterFragment_to_threeFragment)
-                MainViewModel.navController = navControl
             } catch (ex: IOException) {
                 Log.e("MainActivity", "Failed to read from file: $ex")
             }
@@ -113,6 +113,12 @@ class MainActivity : AppCompatActivity() {
                 }
             } catch (ex: IOException) {
                 Log.e("MainActivity", "Failed to write to file: $ex")
+            }
+        } else {
+            val fileToWrite = File(getDir("", MODE_PRIVATE), "loginDetails.txt")
+
+            if (fileToWrite.exists()) {
+                fileToWrite.delete()
             }
         }
         super.onStop()

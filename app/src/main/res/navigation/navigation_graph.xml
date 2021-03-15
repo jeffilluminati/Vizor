@@ -95,7 +95,8 @@
         tools:layout="@layout/fragment_three" >
         <action
             android:id="@+id/action_threeFragment_to_enterFragment"
-            app:destination="@id/enterFragment" />
+            app:destination="@id/enterFragment"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"

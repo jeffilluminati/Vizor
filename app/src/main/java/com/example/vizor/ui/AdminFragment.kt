@@ -20,11 +20,14 @@ import java.util.*
 class AdminFragment : Fragment() {
 
     private val scanQrCode = registerForActivityResult(ScanQRCode()) { handleResult(it) }
+    private lateinit var root: View
 
     private fun handleResult(it: QRResult?) {
+
         when (it) {
             is QRResult.QRSuccess -> {
 
+                root.visibility = View.INVISIBLE
             }
         }
     }
@@ -34,9 +37,7 @@ class AdminFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_admin, container, false)
-
-//        requireView().findViewById<EditText>(R.id.adminDiseaseSearch).visibility = View.INVISIBLE
+        root = inflater.inflate(R.layout.fragment_admin, container, false)
 
         return root
     }
@@ -44,6 +45,9 @@ class AdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        root.visibility = View.INVISIBLE
+        scanQrCode.launch(null)
 
         var recyclerView = this.requireView().findViewById<RecyclerView>(R.id.adminDiseaseRecyclerView)
         recyclerView?.layoutManager = GridLayoutManager(requireContext(),2)

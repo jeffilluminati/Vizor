@@ -4,4 +4,7 @@
     <string name="bottom_nav_title_1">Travel ID</string>
     <string name="bottom_nav_title_2">Vaccines</string>
     <string name="bottom_nav_title_3">Travel History</string>
+    <string-array name="diseases"> <item>COVID-19</item><item>Hepatitis B</item><item>Polio</item>
+    <item>Diphtheria</item><item>Tetanus</item><item>H1N1</item><item>Typhoid</item><item>Yellow Fever</item>
+    </string-array>
 </resources>
