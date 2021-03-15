@@ -1,6 +1,5 @@
 package com.example.vizor.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,13 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
 import com.g00fy2.quickie.QRResult
 import com.g00fy2.quickie.ScanQRCode
-import java.util.*
 
 class AdminFragment : Fragment() {
 
@@ -27,7 +27,19 @@ class AdminFragment : Fragment() {
         when (it) {
             is QRResult.QRSuccess -> {
 
-                root.visibility = View.INVISIBLE
+                root.visibility = View.VISIBLE
+            }
+            is QRResult.QRError -> {
+                AlertDialog.Builder(root.context)
+                        .setTitle("Error!")
+                        .setMessage("There was an error reading the QR, it was not valid.")
+                        .setPositiveButton("Ok") { dialog, _ ->
+                            dialog.dismiss()
+                            MainViewModel.navController!!.navigate(R.id.action_adminFragment_to_enterFragment)
+                        }
+            }
+            is QRResult.QRUserCanceled -> {
+                MainViewModel.navController!!.navigate(R.id.action_adminFragment_to_enterFragment)
             }
         }
     }
