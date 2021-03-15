@@ -9,6 +9,6 @@ Created as CS4131 Assignment, done by Mayukh Das and Dave Tan
 - [x] completed api pulling
 - [x] completed local profile picture capibilities
 - [ ] storage of profile picture online
-- [ ] list of diseases to come up with
+- [x] list of diseases to come up with
 - [ ] storage and pulling of diseases
 - [x] travel history fragment  
