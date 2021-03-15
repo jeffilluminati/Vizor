@@ -23,7 +23,11 @@
         android:id="@+id/navigation_vaccines"
         android:name="com.example.vizor.ui.VaccineFragment"
         android:label="@string/bottom_nav_title_2"
-        tools:layout="@layout/fragment_vaccines" />
+        tools:layout="@layout/fragment_vaccines" >
+        <action
+            android:id="@+id/action_navigation_vaccines_to_diseaseFragment"
+            app:destination="@id/diseaseFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
@@ -61,4 +65,16 @@
         android:name="com.example.vizor.ui.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/diseaseFragment"
+        android:name="com.example.vizor.ui.DiseaseFragment"
+        android:label="DiseaseFragment"
+        tools:layout="@layout/fragment_disease">
+        <argument
+            android:name="disease"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+    </fragment>
 </navigation>

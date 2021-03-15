@@ -16,11 +16,11 @@ import com.example.vizor.R
 class DiseaseRecyclerViewAdapter: RecyclerView.Adapter<DiseaseRecyclerViewAdapter.ViewHolder>(){
 
     private val ITEM_TITLES = arrayOf("COVID-19", "Hepatitis B", "Polio", "Diphtheria", "Tetanus", "H1N1", "Typhoid", "Yellow Fever")
-    private val ITEM_STATUSES =  arrayOf("Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending")
+    private var ITEM_STATUSES =  arrayOf("Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending")
     private val ITEM_IMAGES = intArrayOf(R.drawable.disease_covid, R.drawable.disease_hepatitis, R.drawable.disease_polio, R.drawable.disease_diphtheria, R.drawable.disease_tetanus, R.drawable.disease_h1n1, R.drawable.disease_typhoid, R.drawable.disease_yellowfever)
 
     private var itemTitles = arrayOf("COVID-19", "Hepatitis B", "Polio", "Diphtheria", "Tetanus", "H1N1", "Typhoid", "Yellow Fever")
-    private var itemStatuses = arrayOf("Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending","Vaccination Pending")
+    private var itemStatuses = arrayOf("Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending","Vaccine Pending")
     private var itemImages = intArrayOf(R.drawable.disease_covid, R.drawable.disease_hepatitis, R.drawable.disease_polio, R.drawable.disease_diphtheria, R.drawable.disease_tetanus, R.drawable.disease_h1n1, R.drawable.disease_typhoid, R.drawable.disease_yellowfever)
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var image: ImageView = itemView.findViewById(R.id.diseaseImageView)
@@ -35,14 +35,15 @@ class DiseaseRecyclerViewAdapter: RecyclerView.Adapter<DiseaseRecyclerViewAdapte
 
 
 
-//            itemView.setOnClickListener{
-//
-//                val bundle = bundleOf()
-//                bundle.putString("country", itemName.text.toString())
-//
-//                val navController = Navigation.findNavController(itemView)
-//                navController.navigate(R.id.action_navigation_history_to_countryFragment, bundle)
-//            }
+            itemView.setOnClickListener{
+
+                val bundle = bundleOf()
+                bundle.putString("disease", itemName.text.toString())
+                bundle.putString("status", itemDescription.text.toString())
+
+                val navController = Navigation.findNavController(itemView)
+                navController.navigate(R.id.action_navigation_vaccines_to_diseaseFragment, bundle)
+            }
         }
     }
 
@@ -91,6 +92,7 @@ class DiseaseRecyclerViewAdapter: RecyclerView.Adapter<DiseaseRecyclerViewAdapte
     }
 
     fun setStatuses(statuses: Array<String>){
+        this.ITEM_STATUSES = statuses
         this.itemStatuses = statuses
         notifyDataSetChanged()
     }

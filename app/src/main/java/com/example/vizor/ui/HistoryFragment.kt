@@ -125,11 +125,6 @@ class HistoryFragment: Fragment() {
             }
         })
 
-        val searchButton = view.findViewById<ImageButton>(R.id.imageButton)
-        searchButton.setOnClickListener(){
-
-
-        }
         val startDate  = view.findViewById<EditText>(R.id.startDateText)
         startDate.transformIntoEndDatePicker(requireContext(), "dd MMM")
 

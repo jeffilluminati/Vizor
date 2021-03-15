@@ -4,7 +4,7 @@
     android:layout_width="176dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="24dp"
-    android:backgroundTint="#FF6C6C">
+    android:layout_marginTop="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="COVID-19"
+                android:textColor="@color/black"
                 android:textSize="24sp"/>
 
         </RelativeLayout>
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_marginLeft="16dp"
+            android:textColor="@color/black"
             android:layout_marginTop="16dp"
             android:text="No Vaccination"/>
 
