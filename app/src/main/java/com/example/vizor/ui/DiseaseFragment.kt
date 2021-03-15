@@ -60,7 +60,7 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
                 requireView().findViewById<TextView>(R.id.vaccinationConfirmDate).text = dateList[0] + " Vaccination Confirmed"
                 requireView().findViewById<TextView>(R.id.vaccinationFirstDoseDate).text = dateList[1] + " Receiving of First Dose"
                 requireView().findViewById<TextView>(R.id.vaccinationSecondDoseDate).text = dateList[2] + " Receiving of Second Dose"
-                requireView().findViewById<TextView>(R.id.vaccinationResistanceDate).text = "~" + dateList[3] + "Resistance Achieved"
+                requireView().findViewById<TextView>(R.id.vaccinationResistanceDate).text = "~" + dateList[3] + " Resistance Achieved"
 
                 if (intTodayDate >= sampleDateIntList[2]){
                     requireView().findViewById<LinearProgressIndicator>(R.id.progressBar).progress = 34
@@ -81,7 +81,7 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
                 requireView().findViewById<TextView>(R.id.vaccinationConfirmDate).text = dateList[0] + " Vaccination Confirmed"
                 requireView().findViewById<TextView>(R.id.vaccinationFirstDoseDate).text = dateList[1] + " Receiving of First Dose"
                 requireView().findViewById<TextView>(R.id.vaccinationSecondDoseDate).text = dateList[2] + " Receiving of Second Dose"
-                requireView().findViewById<TextView>(R.id.vaccinationResistanceDate).text =  "~" +  dateList[3] + "Resistance Achieved"
+                requireView().findViewById<TextView>(R.id.vaccinationResistanceDate).text =  "~" +  dateList[3] + " Resistance Achieved"
                 requireView().findViewById<LinearLayout>(R.id.nameBackground).setBackgroundColor(requireContext().resources.getColor(R.color.vaccine_received))
                 requireView().findViewById<TextView>(R.id.infoTextView).text = "Vaccine taken:" + "\n\n" + "Country:" + "\n\n" + "Hospital:" + "\n\n"
             }
