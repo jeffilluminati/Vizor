@@ -12,6 +12,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,28 +23,28 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import android.content.res.ColorStateList
-import android.text.SpannableStringBuilder
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.example.vizor.data.model.MainViewModel
-import kotlin.jvm.Throws
+
 
 class ProfileFragment : Fragment(){
     private lateinit var imageView: ImageView
     lateinit var currentPhotoPath: String
     private lateinit var navController: NavController
 
+    private lateinit var changePasswordBtn: Button
+    private lateinit var informationBtn: Button
+    private lateinit var logOutBtn: Button
+    private lateinit var deleteAccountBtn: Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -52,11 +54,6 @@ class ProfileFragment : Fragment(){
         val model: MainViewModel by activityViewModels()
 
         currentPhotoPath = model.getUri()
-
-
-
-
-
 
     val a = inflater.inflate(R.layout.fragment_profile, container, false)
         return a
@@ -116,132 +113,178 @@ class ProfileFragment : Fragment(){
             navController.navigate(R.id.action_profileFragment_to_infoFragment2)
         }
 
-    }
-fun askCameraPermissions() {
-    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), 101)
-    } else {
-        dispatchTakePictureIntent()
-    }
-}
-fun askFilePermissions() {
-    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 105)
-    }
-    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 106)
+        requireView().findViewById<Button>(R.id.changePasswordBtn).setOnClickListener { view -> onChangePassword(view) }
+        requireView().findViewById<Button>(R.id.logOutBtn).setOnClickListener { view -> onLogOut(view)}
+        requireView().findViewById<Button>(R.id.deleteAccountBtn).setOnClickListener { view -> onDeleteAccount(view)}
+
     }
 
-}
 
-override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    if (requestCode == 101){
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+    fun askCameraPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), 101)
+        } else {
             dispatchTakePictureIntent()
         }
-        else{
-            Toast.makeText(requireContext(), "Camera is needed to submit image", Toast.LENGTH_LONG).show()
-        }
     }
-}
-
-
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == REQUEST_IMAGE_CAPTURE){
-        if (resultCode == Activity.RESULT_OK){
-            var f = File(currentPhotoPath)
-            imageView.setImageURI(Uri.fromFile(f))
-
-//                val myBitmap = BitmapFactory.decodeFile(currentPhotoPath)
-//                        imageView.setImageBitmap(myBitmap)
-
-            var mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-            var contentUri = Uri.fromFile(f)
-            mediaScanIntent.setData(contentUri)
-            requireActivity().sendBroadcast(mediaScanIntent)
+    fun askFilePermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 105)
         }
-    }
-    if (requestCode == 998){
-        if (resultCode == Activity.RESULT_OK){
-            var uriContentUri =  data!!.data!!
-            val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            val storageDir: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val fileName = storageDir.path + "JPEG_" + timeStamp + "." + getFileExt(uriContentUri)
-            imageView.setImageURI(uriContentUri)
-            currentPhotoPath = this!!.getPath(requireContext(), uriContentUri)
-//                val myBitmap = BitmapFactory.decodeFile(currentPhotoPath)
-//                        imageView.setImageBitmap(myBitmap)
-
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 106)
         }
 
     }
-}
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-    // Create an image file name
-    Log.i("12", "100")
-    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//        val storageDir: File =  applicationContext!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
-    val storageDir: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-    Log.i("53", storageDir.absolutePath)
-    return File.createTempFile(
-            "JPEG_${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-    ).apply {
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = absolutePath
-        Log.i("2", currentPhotoPath)
-    }
-}
 
-private var REQUEST_IMAGE_CAPTURE = 102
-
-private fun dispatchTakePictureIntent() {
-    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-        // Ensure that there's a camera activity to handle the intent
-        takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-            // Create the File where the photo should go
-            Log.i("100", "72")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 101){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                dispatchTakePictureIntent()
+            }
+            else{
+                Toast.makeText(requireContext(), "Camera is needed to submit image", Toast.LENGTH_LONG).show()
+            }
         }
-        val photoFile: File = File(currentPhotoPath)
-        Log.i("4",photoFile.absolutePath)
-//                // Continue only if the File was successfully created
-        photoFile.also {
-            val photoURI: Uri = FileProvider.getUriForFile(
-                    requireContext(),
-                    "com.example.vizor.fileprovider",
-                    it
-            )
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        }
-        Log.i("23", "100")
-        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
     }
-}
 
-private fun getFileExt(content : Uri): String{
-    var mime = MimeTypeMap.getSingleton()
-    return mime.getExtensionFromMimeType(requireActivity().contentResolver.getType(content))!!
-}
 
-fun getPath(context: Context, uri: Uri): String {
-    var result: String? = null
-    val proj = arrayOf(MediaStore.Images.Media.DATA)
-    val cursor: Cursor = context.getContentResolver().query(uri, proj, null, null, null)!!
-    if (cursor != null) {
-        if (cursor.moveToFirst()) {
-            val column_index: Int = cursor.getColumnIndexOrThrow(proj[0])
-            result = cursor.getString(column_index)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE){
+            if (resultCode == Activity.RESULT_OK){
+                var f = File(currentPhotoPath)
+                imageView.setImageURI(Uri.fromFile(f))
+
+    //                val myBitmap = BitmapFactory.decodeFile(currentPhotoPath)
+    //                        imageView.setImageBitmap(myBitmap)
+
+                var mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                var contentUri = Uri.fromFile(f)
+                mediaScanIntent.setData(contentUri)
+                requireActivity().sendBroadcast(mediaScanIntent)
+            }
         }
-        cursor.close()
+        if (requestCode == 998){
+            if (resultCode == Activity.RESULT_OK){
+                var uriContentUri =  data!!.data!!
+                val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                val storageDir: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                val fileName = storageDir.path + "JPEG_" + timeStamp + "." + getFileExt(uriContentUri)
+                imageView.setImageURI(uriContentUri)
+                currentPhotoPath = this!!.getPath(requireContext(), uriContentUri)
+    //                val myBitmap = BitmapFactory.decodeFile(currentPhotoPath)
+    //                        imageView.setImageBitmap(myBitmap)
+
+            }
+
+        }
     }
-    if (result == null) {
-        result = "Not found"
+        @Throws(IOException::class)
+        private fun createImageFile(): File {
+        // Create an image file name
+        Log.i("12", "100")
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    //        val storageDir: File =  applicationContext!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        val storageDir: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        Log.i("53", storageDir.absolutePath)
+        return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+            Log.i("2", currentPhotoPath)
+        }
     }
-    return result
-}
+
+    private var REQUEST_IMAGE_CAPTURE = 102
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                // Create the File where the photo should go
+                Log.i("100", "72")
+            }
+            val photoFile: File = File(currentPhotoPath)
+            Log.i("4", photoFile.absolutePath)
+    //                // Continue only if the File was successfully created
+            photoFile.also {
+                val photoURI: Uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.example.vizor.fileprovider",
+                        it
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            }
+            Log.i("23", "100")
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        }
+    }
+
+    private fun getFileExt(content: Uri): String{
+        var mime = MimeTypeMap.getSingleton()
+        return mime.getExtensionFromMimeType(requireActivity().contentResolver.getType(content))!!
+    }
+
+    fun getPath(context: Context, uri: Uri): String {
+        var result: String? = null
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor = context.getContentResolver().query(uri, proj, null, null, null)!!
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val column_index: Int = cursor.getColumnIndexOrThrow(proj[0])
+                result = cursor.getString(column_index)
+            }
+            cursor.close()
+        }
+        if (result == null) {
+            result = "Not found"
+        }
+        return result
+    }
+
+    private fun onChangePassword(view: View) {
+        val taskEditText = EditText(view.context)
+        taskEditText.inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        taskEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+
+        val dialog = AlertDialog.Builder(view.context)
+                .setTitle("Change Password")
+                .setMessage("")
+                .setView(taskEditText)
+                .setPositiveButton("Set") { dialog, arg1 ->
+                    val task = taskEditText.text.toString()
+                    if (task.length >= 8) {
+                        MainViewModel.currentUser!!.password = task
+                        MainViewModel.currentUser!!.updateData()
+                        dialog.dismiss()
+                    } else {
+                        val dialog = AlertDialog.Builder(view.context)
+                                .setTitle("Error")
+                                .setMessage("The password has to have at the very least 8 characters")
+                                .setPositiveButton("Ok") { dialog, _ ->
+                                    dialog.dismiss()
+                                }.create().show()
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .create()
+
+        dialog.show()
+    }
+
+    private fun onLogOut(view: View) {
+        MainViewModel.currentUser = null
+        MainViewModel.navController!!.navigate(R.id.action_threeFragment_to_enterFragment)
+    }
+
+    private fun onDeleteAccount(view: View) {
+        MainViewModel.currentUser!!.deleteAccount()
+        onLogOut(view)
+    }
 }

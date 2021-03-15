@@ -6,7 +6,7 @@
     tools:context=".ui.VaccineFragment">
 
     <EditText
-        android:id="@+id/diseaseSearch"
+        android:id="@+id/adminDiseaseSearch"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/diseaseRecylerView"
-        android:layout_below="@id/diseaseSearch"
+        android:id="@+id/adminDiseaseRecyclerView"
+        android:layout_below="@id/adminDiseaseSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"

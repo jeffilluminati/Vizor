@@ -92,10 +92,14 @@
         android:id="@+id/threeFragment"
         android:name="com.example.vizor.ui.ThreeFragment"
         android:label="fragment_three"
-        tools:layout="@layout/fragment_three" />
+        tools:layout="@layout/fragment_three" >
+        <action
+            android:id="@+id/action_threeFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/adminFragment"
         android:name="com.example.vizor.ui.AdminFragment"
         android:label="AdminFragment"
-        tools:layout="@layout/fragment_admin"/>
+        tools:layout="@layout/fragment_admin2"/>
 </navigation>

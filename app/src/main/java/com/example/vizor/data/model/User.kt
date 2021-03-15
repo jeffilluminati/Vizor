@@ -8,7 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-data class User(val password: String, val ID: String, val myVaccines: ArrayList<Vaccine> = ArrayList()) {
+data class User(var password: String, val ID: String, val myVaccines: ArrayList<Vaccine> = ArrayList()) {
 
     private var documentRef = Firebase.firestore.collection("users").document(ID)
 
@@ -74,5 +74,12 @@ data class User(val password: String, val ID: String, val myVaccines: ArrayList<
         )
 
         return user
+    }
+
+    fun deleteAccount() {
+        documentRef.get().addOnSuccessListener { documentRef ->
+            documentRef.reference.delete()
+        }
+        MainViewModel.currentUser = null
     }
 }

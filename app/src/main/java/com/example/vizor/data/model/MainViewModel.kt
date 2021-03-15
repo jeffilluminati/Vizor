@@ -4,22 +4,21 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 
 class MainViewModel: ViewModel() {
-    private lateinit var uri: MutableLiveData<String>
+    private var uri: MutableLiveData<String> = MutableLiveData<String>("")
+
     companion object {
         var currentUser: User? = null
 
-    }
+        var navController: NavController? = null
 
-    init {
-        uri = MutableLiveData<String>("")
     }
-
 
     public fun getUri(): String{
-        return uri.value.toString()
         Log.i("g", uri.value.toString())
+        return uri.value.toString()
     }
 
     public fun setUri(uriNew: String){

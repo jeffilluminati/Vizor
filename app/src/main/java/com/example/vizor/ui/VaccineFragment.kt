@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vizor.R
 
@@ -28,11 +27,11 @@ class VaccineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var recyclerView = this.requireView().findViewById<RecyclerView>(R.id.diseaseRecylerView)
+        var recyclerView = this.requireView().findViewById<RecyclerView>(R.id.adminDiseaseRecyclerView)
         recyclerView?.layoutManager = GridLayoutManager(requireContext(),2)
         recyclerView?.adapter = DiseaseRecyclerViewAdapter()
 
-        val searchTo = requireView().findViewById<EditText>(R.id.diseaseSearch)
+        val searchTo = requireView().findViewById<EditText>(R.id.adminDiseaseSearch)
 
         searchTo.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -42,8 +41,8 @@ class VaccineFragment : Fragment() {
                 var posList = listOf<Int>()
                 var diseaseList = (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).getDiseaseList()
                 for (a in diseaseList.indices){
-                    Log.i(diseaseList[a].toLowerCase(), requireView().findViewById<EditText>(R.id.diseaseSearch).text.toString().toLowerCase())
-                    if (diseaseList[a].toLowerCase().contains(requireView().findViewById<EditText>(R.id.diseaseSearch).text.toString().toLowerCase())){
+                    Log.i(diseaseList[a].toLowerCase(), requireView().findViewById<EditText>(R.id.adminDiseaseSearch).text.toString().toLowerCase())
+                    if (diseaseList[a].toLowerCase().contains(requireView().findViewById<EditText>(R.id.adminDiseaseSearch).text.toString().toLowerCase())){
                         posList += a
                     }
                 }
@@ -61,8 +60,8 @@ class VaccineFragment : Fragment() {
                 var posList = listOf<Int>()
                 var diseaseList = (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).getDiseaseList()
                 for (a in diseaseList.indices){
-                    Log.i(diseaseList[a].toLowerCase(), requireView().findViewById<EditText>(R.id.diseaseSearch).text.toString().toLowerCase())
-                    if (diseaseList[a].toLowerCase().contains(requireView().findViewById<EditText>(R.id.diseaseSearch).text.toString().toLowerCase())){
+                    Log.i(diseaseList[a].toLowerCase(), requireView().findViewById<EditText>(R.id.adminDiseaseSearch).text.toString().toLowerCase())
+                    if (diseaseList[a].toLowerCase().contains(requireView().findViewById<EditText>(R.id.adminDiseaseSearch).text.toString().toLowerCase())){
                         posList += a
                     }
                 }

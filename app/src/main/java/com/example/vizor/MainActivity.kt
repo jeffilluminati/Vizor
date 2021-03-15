@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 User.tryLogin(ID, password, false)
 
                 navControl.navigate(R.id.action_enterFragment_to_threeFragment)
+                MainViewModel.navController = navControl
             } catch (ex: IOException) {
                 Log.e("MainActivity", "Failed to read from file: $ex")
             }
