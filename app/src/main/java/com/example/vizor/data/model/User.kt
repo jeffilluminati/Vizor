@@ -29,22 +29,22 @@ data class User(var password: String, val ID: String) {
     private fun generateRandomVaccineStatus(): VaccineStatus {
         return when (Random().nextInt(9)+1) {
             1 -> {
-                VaccineStatus("12/03/21","12/04/21","19/04/21","03/05/21")
+                VaccineStatus("12/03/21","12/04/21","21/04/21","03/05/21")
             }
             2 -> {
-                VaccineStatus("12/03/21", "19/03/21","26/03/21","02/04/21")
+                VaccineStatus("8/03/21", "19/03/21","26/03/21","31/03/21")
             }
             3 -> {
-                VaccineStatus("5/03/21","12/03/21","19/03/21", "26/03/21")
+                VaccineStatus("5/01/21","12/01/21","19/01/21", "2/02/21")
             }
             4 -> {
                 VaccineStatus("27/02/21","5/03/21","12/03/21", "19/03/21")
             }
             5 -> {
-                VaccineStatus("20/02/21","27/03/21","5/03/21", "12/03/21")
+                VaccineStatus("20/02/21","27/02/21","5/03/21", "12/03/21")
             }
             6 -> {
-                VaccineStatus("13/02/21","20/03/21","27/02/21", "05/03/21")
+                VaccineStatus("13/02/21","20/03/21","27/03/21", "05/04/21")
             }
             else -> {
                 VaccineStatus("", "", "", "")
