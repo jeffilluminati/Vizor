@@ -88,7 +88,7 @@ data class User(var password: String, val ID: String) {
                     else -> ""
                 }
             }
-            "Diphteria" -> {
+            "Diphtheria" -> {
                 return when (r.nextInt(3)) {
                     0 -> "Pentacel"
                     1 -> "Trihibit"
@@ -142,11 +142,13 @@ data class User(var password: String, val ID: String) {
 
                 if (isFromLoginFragment) {
                     LoginFragment.loginFragment?.onUserUpdated()
+                } else {
+                    val vaccinationStatus = currentUser!!.generateVaccinesStatus()
+                    VaccineFragment.vaccineStatus = vaccinationStatus
+                    if (VaccineFragment.adapter != null) {
+                        VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
+                    }
                 }
-
-                val vaccinationStatus = currentUser!!.generateVaccinesStatus()
-                VaccineFragment.vaccineStatus = vaccinationStatus
-                VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
             }
         }
 
