@@ -1,11 +1,14 @@
 package com.example.vizor.data.model
 
+import android.text.format.DateFormat
 import com.example.vizor.data.model.MainViewModel.Companion.currentUser
 import com.example.vizor.ui.LoginFragment
 import com.example.vizor.ui.RegistrationFragment
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 data class User(var password: String, val ID: String) {
@@ -25,26 +28,31 @@ data class User(var password: String, val ID: String) {
     }
 
     private fun generateRandomVaccineStatus(): VaccineStatus {
-        return VaccineStatus("", "", "", "")
+        return when (Random().nextInt(7)+1) {
+            1 -> {
+                VaccineStatus(Date(),SimpleDateFormat("dd/MM/yy").parse("12/04/21"),SimpleDateFormat("dd/MM/yy").parse("19/04/21"),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+            }
+            2 -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("12/03/2021"),Date(),SimpleDateFormat("dd/MM/yy").parse("19/04/21"),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+            }
+            3 -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("5/03/2021"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"),Date(),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+            }
+            4 -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+            }
+            5 -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+            }
+            6 -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+            }
+            else -> {
+                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"), SimpleDateFormat("dd/MM/yy").parse("5/03/21"), SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+            }
+        }
+
     }
-//        return when (Random().nextInt(7)+1) {
-//            1 -> {
-//                VaccineStatus()
-//            }
-//            2 -> {
-//                VaccineStatus()
-//            }
-//            3 -> {
-//                VaccineStatus()
-//            }
-//            4 -> {
-//                VaccineStatus()
-//            }
-//            else -> {
-//                VaccineStatus()
-//            }
-//        }
-//    }
 
     companion object {
         private fun getFromCloud(ID: String, isFromLoginFragment: Boolean) {
