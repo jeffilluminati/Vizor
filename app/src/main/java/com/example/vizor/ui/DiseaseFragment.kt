@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
+import com.example.vizor.data.model.Vaccine
+import com.example.vizor.data.model.VaccineStatus
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,10 +41,10 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
         requireView().findViewById<TextView>(R.id.diseaseFragmentName).text = disease
         requireView().findViewById<TextView>(R.id.diseaseFragmentStatus).text = status
 
-
-        var sampleDateList = arrayOf("12/2/2021" , "21/2/2021" , "11/3/2021" , "20/3/2021")
-        var sampleDateList2 = arrayOf("5/1/2021" , "12/1/2021" , "11/2/2021" , "26/2/2021")
-        var dateList: Array<String>
+        val vaccine: Vaccine = MainViewModel.currentUser!!.myVaccines.find{ vaccine: Vaccine -> vaccine.diseaseName.equals(disease, true)}!!
+        val vaccineStatus: VaccineStatus = vaccine.vaccineStatus
+        val sdf = SimpleDateFormat("dd/MM/yy")
+        var dateList: Array<String> = arrayOf(vaccineStatus.confirmationDate!!, vaccineStatus.firstDateReceived!!, vaccineStatus.secondDoseReceived!!, vaccineStatus.fullResistanceAchieved!!)
 
         when (status){
             "No Vaccine" -> {
@@ -51,11 +54,9 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
             }
             "Vaccine Pending" ->{
                 requireView().findViewById<LinearLayout>(R.id.nameBackground).setBackgroundColor(requireContext().resources.getColor(R.color.vaccine_pending))
-                requireView().findViewById<TextView>(R.id.infoTextView).text = "Vaccine to be taken:" + "\n\n" + "Country:" + "\n\n" + "Hospital:" + "\n\n"
-                dateList = sampleDateList
-                var sampleDateIntList = arrayOf(dateToInt(sampleDateList[0]), dateToInt(sampleDateList[1]), dateToInt(sampleDateList[2]), dateToInt(sampleDateList[3]))
-                var sdfd = SimpleDateFormat("dd/MM/yyyy")
-                var intTodayDate = dateToInt(sdfd.format(Date()))
+                requireView().findViewById<TextView>(R.id.infoTextView).text = "Vaccine to be taken: ${vaccine.vaccineName}"
+                var sampleDateIntList = arrayOf(dateToInt(dateList[0]), dateToInt(dateList[1]), dateToInt(dateList[2]), dateToInt(dateList[3]))
+                var intTodayDate = dateToInt(sdf.format(Date()))
 
                 requireView().findViewById<TextView>(R.id.vaccinationConfirmDate).text = dateList[0] + " Vaccination Confirmed"
                 requireView().findViewById<TextView>(R.id.vaccinationFirstDoseDate).text = dateList[1] + " Receiving of First Dose"
@@ -72,18 +73,15 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
                 else
                     requireView().findViewById<LinearProgressIndicator>(R.id.progressBar).progress = 4
 
-
-
             }
             "Vaccine Received" ->{
-                dateList = sampleDateList2
                 requireView().findViewById<LinearProgressIndicator>(R.id.progressBar).progress = 58
                 requireView().findViewById<TextView>(R.id.vaccinationConfirmDate).text = dateList[0] + " Vaccination Confirmed"
                 requireView().findViewById<TextView>(R.id.vaccinationFirstDoseDate).text = dateList[1] + " Receiving of First Dose"
                 requireView().findViewById<TextView>(R.id.vaccinationSecondDoseDate).text = dateList[2] + " Receiving of Second Dose"
                 requireView().findViewById<TextView>(R.id.vaccinationResistanceDate).text =  "~" +  dateList[3] + " Resistance Achieved"
                 requireView().findViewById<LinearLayout>(R.id.nameBackground).setBackgroundColor(requireContext().resources.getColor(R.color.vaccine_received))
-                requireView().findViewById<TextView>(R.id.infoTextView).text = "Vaccine taken:" + "\n\n" + "Country:" + "\n\n" + "Hospital:" + "\n\n"
+                requireView().findViewById<TextView>(R.id.infoTextView).text = "Vaccine taken: ${vaccine.vaccineName}"
             }
         }
 
@@ -160,14 +158,10 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
                     startActivity(i)
                 }
             }
-
-
-
-
         }
 
-        val sdf = SimpleDateFormat("dd MMMM yyyy")
-        requireView().findViewById<TextView>(R.id.verifiedText).text = "Information last verified by MOH Vizor on " + sdf.format(Date()) + "."
+        val sdf1 = SimpleDateFormat("dd MMMM yyyy")
+        requireView().findViewById<TextView>(R.id.verifiedText).text = "Information last verified by MOH Vizor on " + sdf1.format(Date()) + "."
 
 
     }

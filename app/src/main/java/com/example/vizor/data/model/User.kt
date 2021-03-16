@@ -1,6 +1,5 @@
 package com.example.vizor.data.model
 
-import android.text.format.DateFormat
 import com.example.vizor.data.model.MainViewModel.Companion.currentUser
 import com.example.vizor.ui.LoginFragment
 import com.example.vizor.ui.RegistrationFragment
@@ -8,50 +7,118 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 
 data class User(var password: String, val ID: String) {
 
     private var documentRef = Firebase.firestore.collection("users").document(ID)
-    private var myVaccines: ArrayList<Vaccine> = ArrayList()
+    var myVaccines: ArrayList<Vaccine> = ArrayList()
 
     init {
-        myVaccines.add(Vaccine("COVID-19", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Hepatitis B", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Polio", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Diphtheria", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Tetanus", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("H1N1", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Typhoid", generateRandomVaccineStatus()))
-        myVaccines.add(Vaccine("Yellow Fever", generateRandomVaccineStatus()))
+        myVaccines.add(Vaccine("COVID-19", generateRandomVaccineStatus(), generateRandomVaccineName("COVID-19")))
+        myVaccines.add(Vaccine("Hepatitis B", generateRandomVaccineStatus(), generateRandomVaccineName("Hepatitis B")))
+        myVaccines.add(Vaccine("Polio", generateRandomVaccineStatus(), generateRandomVaccineName("Polio")))
+        myVaccines.add(Vaccine("Diphtheria", generateRandomVaccineStatus(), generateRandomVaccineName("Diphtheria")))
+        myVaccines.add(Vaccine("Tetanus", generateRandomVaccineStatus(), generateRandomVaccineName("Tetanus")))
+        myVaccines.add(Vaccine("H1N1", generateRandomVaccineStatus(), generateRandomVaccineName("H1N1")))
+        myVaccines.add(Vaccine("Typhoid", generateRandomVaccineStatus(), generateRandomVaccineName("Typhoid")))
+        myVaccines.add(Vaccine("Yellow Fever", generateRandomVaccineStatus(), generateRandomVaccineName("Yellow Fever")))
     }
 
     private fun generateRandomVaccineStatus(): VaccineStatus {
-        return when (Random().nextInt(7)+1) {
+        return when (Random().nextInt(9)+1) {
             1 -> {
-                VaccineStatus(Date(),SimpleDateFormat("dd/MM/yy").parse("12/04/21"),SimpleDateFormat("dd/MM/yy").parse("19/04/21"),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+                VaccineStatus("12/03/21","12/04/21","19/04/21","03/05/21")
             }
             2 -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("12/03/2021"),Date(),SimpleDateFormat("dd/MM/yy").parse("19/04/21"),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+                VaccineStatus("12/03/21", "19/03/21","26/03/21","02/04/21")
             }
             3 -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("5/03/2021"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"),Date(),SimpleDateFormat("dd/MM/yy").parse("03/05/21"))
+                VaccineStatus("5/03/21","12/03/21","19/03/21", "26/03/21")
             }
             4 -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+                VaccineStatus("27/02/21","5/03/21","12/03/21", "19/03/21")
             }
             5 -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+                VaccineStatus("20/02/21","27/03/21","5/03/21", "12/03/21")
             }
             6 -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"),SimpleDateFormat("dd/MM/yy").parse("5/03/21"),SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+                VaccineStatus("13/02/21","20/03/21","27/02/21", "05/03/21")
             }
             else -> {
-                VaccineStatus(SimpleDateFormat("dd/MM/yy").parse("27/02/2021"), SimpleDateFormat("dd/MM/yy").parse("5/03/21"), SimpleDateFormat("dd/MM/yy").parse("12/03/21"), Date())
+                VaccineStatus("", "", "", "")
             }
         }
+    }
 
+    private fun generateRandomVaccineName(vaccineName: String): String {
+        val r = Random()
+        return when (vaccineName) {
+            "COVID-19" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Pfizer-BioNTech"
+                    1 -> "Moderna"
+                    2 -> "Johnson & Johnson / Janssen"
+                    else -> ""
+                }
+            }
+            "Hepatitis B" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Recombivax HB"
+                    1 -> "Engerix-B"
+                    2 -> "Heplisav-B"
+                    else -> ""
+                }
+            }
+            "Polio" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Ipol"
+                    1 -> "Poliovax"
+                    2 -> "Salk"
+                    else -> ""
+                }
+            }
+            "Diphteria" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Pentacel"
+                    1 -> "Trihibit"
+                    2 -> "Kinrix"
+                    else -> ""
+                }
+            }
+            "Tetanus" ->  {
+                return when (r.nextInt(3)) {
+                    0 -> "Tenivac"
+                    1 -> "Decavac"
+                    2 -> "Tetramune"
+                    else -> ""
+                }
+            }
+            "H1N1" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Afluria"
+                    1 -> "Fluarix"
+                    2 -> "Fluzone"
+                    else -> ""
+                }
+            }
+            "Typhoid" -> {
+                return when (r.nextInt(3)) {
+                    0 -> "Typhim Vi"
+                    1 -> "Vivotif"
+                    2 -> "Typhim Vi Polysaccharide"
+                    else -> ""
+                }
+            }
+            "Yellow Fever" -> {
+                return when (r.nextInt(2)) {
+                    0 -> "YF-Vax"
+                    1 -> "Stamaril"
+                    else -> ""
+                }
+            }
+            else -> ""
+        }
     }
 
     companion object {
@@ -59,7 +126,9 @@ data class User(var password: String, val ID: String) {
             val documentRef = Firebase.firestore.document("users/${ID}")
 
             documentRef.get().addOnSuccessListener { result ->
-                currentUser = User(result.getString("password")!!, result.getString("ID")!!, result.get("myVaccines") as ArrayList<Vaccine>)
+                val vaccineHashMap = result.get("myVaccines") as ArrayList<HashMap<String, Any?>>
+                val vaccines: ArrayList<Vaccine> = vaccineHashMap.map { hashMap -> Vaccine.getFromHashMap(hashMap) } as ArrayList<Vaccine>
+                currentUser = User(result.getString("password")!!, result.getString("ID")!!, vaccines)
 
                 if (isFromLoginFragment) {
                     LoginFragment.loginFragment?.onUserUpdated()
@@ -127,5 +196,20 @@ data class User(var password: String, val ID: String) {
             documentRef.reference.delete()
         }
         MainViewModel.currentUser = null
+    }
+
+    fun generateVaccinesStatus(): Array<String> {
+        val strArray: Array<String> = Array(8) { "" }
+        for (i in 0..7) {
+            if (myVaccines[i].vaccineStatus.fullResistanceAchieved.equals("")) {
+                strArray[i] = "No Vaccine"
+            } else if (Date().after(SimpleDateFormat("dd/MM/yy").parse(myVaccines[i].vaccineStatus.fullResistanceAchieved))) {
+                strArray[i] = "Vaccine Received"
+            } else {
+                strArray[i] = "Vaccine Pending"
+            }
+        }
+
+        return strArray
     }
 }

@@ -11,7 +11,9 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.vizor.MainActivity
 import com.example.vizor.R
+import com.example.vizor.data.model.MainViewModel
 
 class VaccineFragment : Fragment() {
     override fun onCreateView(
@@ -71,7 +73,7 @@ class VaccineFragment : Fragment() {
             }
         })
 
-        val vaccinationStatus = arrayOf("Vaccine Pending", "Vaccine Received", "No Vaccine", "Vaccine Pending", "Vaccine Received", "Vaccine Pending", "Vaccine Received", "No Vaccine")
+        val vaccinationStatus = MainViewModel.currentUser!!.generateVaccinesStatus()
         (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).setStatuses(vaccinationStatus)
     }
 }
