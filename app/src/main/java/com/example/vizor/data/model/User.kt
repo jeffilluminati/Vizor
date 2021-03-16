@@ -3,6 +3,7 @@ package com.example.vizor.data.model
 import com.example.vizor.data.model.MainViewModel.Companion.currentUser
 import com.example.vizor.ui.LoginFragment
 import com.example.vizor.ui.RegistrationFragment
+import com.example.vizor.ui.VaccineFragment
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -133,6 +134,10 @@ data class User(var password: String, val ID: String) {
                 if (isFromLoginFragment) {
                     LoginFragment.loginFragment?.onUserUpdated()
                 }
+
+                val vaccinationStatus = currentUser!!.generateVaccinesStatus()
+                VaccineFragment.vaccineStatus = vaccinationStatus
+                VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
             }
         }
 

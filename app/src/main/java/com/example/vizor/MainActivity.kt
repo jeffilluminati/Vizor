@@ -12,6 +12,8 @@ import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
 import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
+import com.example.vizor.ui.DiseaseRecyclerViewAdapter
+import com.example.vizor.ui.VaccineFragment
 import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -56,10 +58,9 @@ class MainActivity : AppCompatActivity() {
 
                 val ID = decryptedString.substringAfter(": ").substringBefore('\n')
                 val password = decryptedString.substringAfterLast(": ")
-
                 User.tryLogin(ID, password, false)
-
                 navControl.navigate(R.id.action_enterFragment_to_threeFragment)
+
             } catch (ex: IOException) {
                 Log.e("MainActivity", "Failed to read from file: $ex")
             }

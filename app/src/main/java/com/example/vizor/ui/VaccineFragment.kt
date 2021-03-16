@@ -16,6 +16,12 @@ import com.example.vizor.R
 import com.example.vizor.data.model.MainViewModel
 
 class VaccineFragment : Fragment() {
+
+    companion object {
+        var adapter: DiseaseRecyclerViewAdapter? = null
+        var vaccineStatus: Array<String> = Array(8) { "" }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +38,7 @@ class VaccineFragment : Fragment() {
         var recyclerView = this.requireView().findViewById<RecyclerView>(R.id.adminDiseaseRecyclerView)
         recyclerView?.layoutManager = GridLayoutManager(requireContext(),2)
         recyclerView?.adapter = DiseaseRecyclerViewAdapter()
+        adapter = recyclerView?.adapter as DiseaseRecyclerViewAdapter
 
         val searchTo = requireView().findViewById<EditText>(R.id.adminDiseaseSearch)
 
@@ -73,7 +80,6 @@ class VaccineFragment : Fragment() {
             }
         })
 
-        val vaccinationStatus = MainViewModel.currentUser!!.generateVaccinesStatus()
-        (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).setStatuses(vaccinationStatus)
+        (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).setStatuses(vaccineStatus)
     }
 }
