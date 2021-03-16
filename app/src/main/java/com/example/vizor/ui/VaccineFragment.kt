@@ -19,7 +19,7 @@ class VaccineFragment : Fragment() {
 
     companion object {
         var adapter: DiseaseRecyclerViewAdapter? = null
-        var vaccineStatus: Array<String> = Array(8) { "" }
+        var vaccineStatus: Array<String>? = null
     }
 
     override fun onCreateView(
@@ -27,7 +27,6 @@ class VaccineFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val a = inflater.inflate(R.layout.fragment_vaccines, container, false)
         return a
     }
@@ -80,6 +79,9 @@ class VaccineFragment : Fragment() {
             }
         })
 
-        (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).setStatuses(vaccineStatus)
+        if (vaccineStatus == null) {
+            vaccineStatus = Array(8) { "" }
+        }
+        (recyclerView!!.adapter as DiseaseRecyclerViewAdapter).setStatuses(vaccineStatus!!)
     }
 }
