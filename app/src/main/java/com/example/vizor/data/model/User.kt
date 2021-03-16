@@ -133,12 +133,11 @@ data class User(var password: String, val ID: String) {
 
                 if (isFromLoginFragment) {
                     LoginFragment.loginFragment?.onUserUpdated()
-                } else {
-                    val vaccinationStatus = currentUser!!.generateVaccinesStatus()
-                    VaccineFragment.vaccineStatus = vaccinationStatus
-                    if (VaccineFragment.adapter != null) {
-                        VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
-                    }
+                }
+                val vaccinationStatus = currentUser!!.generateVaccinesStatus()
+                VaccineFragment.vaccineStatus = vaccinationStatus
+                if (VaccineFragment.adapter != null) {
+                    VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
                 }
             }
         }
