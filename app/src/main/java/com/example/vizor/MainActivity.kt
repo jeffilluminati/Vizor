@@ -3,17 +3,13 @@ package com.example.vizor
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import android.widget.ViewAnimator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
 import com.example.vizor.data.model.MainViewModel
 import com.example.vizor.data.model.User
-import com.example.vizor.ui.DiseaseRecyclerViewAdapter
-import com.example.vizor.ui.VaccineFragment
 import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -58,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
                 val ID = decryptedString.substringAfter(": ").substringBefore('\n')
                 val password = decryptedString.substringAfterLast(": ")
-                User.tryLogin(ID, password, false)
+                User.tryLogin(ID, password, false, false)
                 navControl.navigate(R.id.action_enterFragment_to_threeFragment)
 
             } catch (ex: IOException) {

@@ -13,21 +13,34 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vizor.R
+import com.example.vizor.data.model.CryptUtil
 import com.example.vizor.data.model.MainViewModel
+import com.example.vizor.data.model.User
+import com.example.vizor.data.model.Vaccine
 import com.g00fy2.quickie.QRResult
 import com.g00fy2.quickie.ScanQRCode
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdminFragment : Fragment() {
 
+    companion object {
+        var vaccines: ArrayList<Vaccine>? = null
+        var adapter: AdminDiseaseRecyclerViewAdapter? = null
+        var adminFragment: AdminFragment? = null
+    }
+
     private val scanQrCode = registerForActivityResult(ScanQRCode()) { handleResult(it) }
     private lateinit var root: View
+    private lateinit var scannedUser: User
 
     private fun handleResult(it: QRResult?) {
 
         when (it) {
             is QRResult.QRSuccess -> {
+                val ID = CryptUtil.decrypt(it.content.rawValue)
+                User.peekDetails(ID)
 
-                root.visibility = View.VISIBLE
             }
             is QRResult.QRError -> {
                 AlertDialog.Builder(root.context)
@@ -50,6 +63,7 @@ class AdminFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.fragment_admin, container, false)
+        adminFragment = this
 
         return root
     }
@@ -64,6 +78,7 @@ class AdminFragment : Fragment() {
         var recyclerView = this.requireView().findViewById<RecyclerView>(R.id.adminDiseaseRecyclerView)
         recyclerView?.layoutManager = GridLayoutManager(requireContext(),2)
         recyclerView?.adapter = AdminDiseaseRecyclerViewAdapter()
+        adapter = recyclerView?.adapter as AdminDiseaseRecyclerViewAdapter
 
         val searchTo = requireView().findViewById<EditText>(R.id.adminDiseaseSearch)
 
@@ -107,5 +122,25 @@ class AdminFragment : Fragment() {
 
         val vaccinationStatus = arrayOf("Vaccine Pending", "Vaccine Received", "No Vaccine", "Vaccine Pending", "Vaccine Received", "Vaccine Pending", "Vaccine Received", "No Vaccine")
         (recyclerView!!.adapter as AdminDiseaseRecyclerViewAdapter).setStatuses(vaccinationStatus)
+    }
+
+    fun updateDetails() {
+        adapter!!.setStatuses(generateVaccinesStatus(vaccines!!))
+        root.visibility = View.VISIBLE
+    }
+
+    fun generateVaccinesStatus(myVaccines: ArrayList<Vaccine>): Array<String> {
+        val strArray: Array<String> = Array(8) { "" }
+        for (i in 0..7) {
+            if (myVaccines[i].vaccineStatus.fullResistanceAchieved.equals("")) {
+                strArray[i] = "No Vaccine"
+            } else if (Date().after(SimpleDateFormat("dd/MM/yy").parse(myVaccines[i].vaccineStatus.fullResistanceAchieved))) {
+                strArray[i] = "Vaccine Received"
+            } else {
+                strArray[i] = "Vaccine Pending"
+            }
+        }
+
+        return strArray
     }
 }

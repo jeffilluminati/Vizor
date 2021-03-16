@@ -41,8 +41,13 @@ class DiseaseFragment: Fragment(), View.OnClickListener {
         requireView().findViewById<TextView>(R.id.diseaseFragmentName).text = disease
         requireView().findViewById<TextView>(R.id.diseaseFragmentStatus).text = status
 
-        val vaccine: Vaccine = MainViewModel.currentUser!!.myVaccines.find{ vaccine: Vaccine -> vaccine.diseaseName.equals(disease, true)}!!
-        val vaccineStatus: VaccineStatus = vaccine.vaccineStatus
+        var vaccine: Vaccine? = null
+        if (MainViewModel.currentUser != null) {
+            vaccine = MainViewModel.currentUser!!.myVaccines.find { vaccine: Vaccine -> vaccine.diseaseName.equals(disease, true) }!!
+        } else if (AdminFragment.vaccines != null){
+            vaccine = AdminFragment.vaccines!!.find { vaccine: Vaccine -> vaccine.diseaseName.equals(disease, true) }!!
+        }
+        val vaccineStatus: VaccineStatus = vaccine!!.vaccineStatus
         val sdf = SimpleDateFormat("dd/MM/yy")
         var dateList: Array<String> = arrayOf(vaccineStatus.confirmationDate!!, vaccineStatus.firstDateReceived!!, vaccineStatus.secondDoseReceived!!, vaccineStatus.fullResistanceAchieved!!)
 

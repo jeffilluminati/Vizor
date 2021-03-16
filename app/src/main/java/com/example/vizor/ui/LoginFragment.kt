@@ -47,7 +47,7 @@ class LoginFragment: Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.enterBtn -> User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString(), true)
+            R.id.enterBtn -> User.tryLogin(loginEditText.text.toString(), passwordEditText.text.toString(), true, false)
         }
     }
 

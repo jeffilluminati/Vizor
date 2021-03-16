@@ -1,6 +1,6 @@
 package com.example.vizor.data.model
 
-import com.example.vizor.data.model.MainViewModel.Companion.currentUser
+import com.example.vizor.ui.AdminFragment
 import com.example.vizor.ui.LoginFragment
 import com.example.vizor.ui.RegistrationFragment
 import com.example.vizor.ui.VaccineFragment
@@ -132,31 +132,34 @@ data class User(var password: String, val ID: String) {
     }
 
     companion object {
-        private fun getFromCloud(ID: String, isFromLoginFragment: Boolean) {
+        private fun getFromCloud(ID: String, isFromLoginFragment: Boolean, isFromScanFragment: Boolean) {
             val documentRef = Firebase.firestore.document("users/${ID}")
 
             documentRef.get().addOnSuccessListener { result ->
                 val vaccineHashMap = result.get("myVaccines") as ArrayList<HashMap<String, Any?>>
                 val vaccines: ArrayList<Vaccine> = vaccineHashMap.map { hashMap -> Vaccine.getFromHashMap(hashMap) } as ArrayList<Vaccine>
-                currentUser = User(result.getString("password")!!, result.getString("ID")!!, vaccines)
+
+                MainViewModel.currentUser = User(result.getString("password")!!, result.getString("ID")!!, vaccines)
 
                 if (isFromLoginFragment) {
                     LoginFragment.loginFragment?.onUserUpdated()
                 }
-                val vaccinationStatus = currentUser!!.generateVaccinesStatus()
+
+                val vaccinationStatus = MainViewModel.currentUser!!.generateVaccinesStatus()
                 VaccineFragment.vaccineStatus = vaccinationStatus
                 if (VaccineFragment.adapter != null) {
                     VaccineFragment.adapter!!.setStatuses(vaccinationStatus)
                 }
+
             }
         }
 
-        fun tryLogin(ID: String, password: String, isFromLoginFragment: Boolean) {
+        fun tryLogin(ID: String, password: String, isFromLoginFragment: Boolean, isFromScanFragment: Boolean) {
             val referenceToUsers = Firebase.firestore.collection("users").get()
             referenceToUsers.addOnSuccessListener { result ->
                 for (document in result.documents) {
                     if (((document.get("ID")!! as String) == ID && (document.get("password")!! as String) == password)) {
-                        getFromCloud(document.id, isFromLoginFragment)
+                        getFromCloud(document.id, isFromLoginFragment, isFromScanFragment)
                     }
                 }
             }
@@ -175,9 +178,23 @@ data class User(var password: String, val ID: String) {
                 if (isValid) {
                     val user = User(password, ID)
                     user.commitToCloud()
-                    currentUser = user
+                    MainViewModel.currentUser = user
                 }
                 RegistrationFragment.registrationFragment?.onUserUpdated(isValid)
+            }
+        }
+
+        fun peekDetails(ID: String) {
+            val referenceToUsers = Firebase.firestore.collection("users").get()
+            referenceToUsers.addOnSuccessListener { result ->
+                for (document in result.documents) {
+                    if ((document.get("ID")!! as String) == ID) {
+                        val vaccineHashMap = document.get("myVaccines") as ArrayList<HashMap<String, Any?>>
+                        AdminFragment.vaccines = vaccineHashMap.map { hashMap -> Vaccine.getFromHashMap(hashMap) } as ArrayList<Vaccine>
+                        AdminFragment.adminFragment
+
+                    }
+                }
             }
         }
     }
